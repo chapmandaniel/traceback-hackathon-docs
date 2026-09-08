@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>ETL and Lineage · Traceback</title><meta name="description" content="Traceback project planning documentation: scope, three pillars, interfaces, and acceptance criteria."><link rel="stylesheet" href="../../assets/site.css"><script defer src="../../assets/search-index.js"></script><script defer src="../../assets/site.js"></script></head>
+<body data-root="../.."><a class="skip-link" href="#main">Skip to content</a><noscript><style>.search-button,.menu-button,.compact-search{display:none!important}</style><details class="no-script-nav"><summary>Traceback documentation navigation</summary><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="index.html">Overview</a><a href="web-experience.html">Web Experience</a><a href="fi-data-contract.html">FI Data Contract</a><a href="etl-and-lineage.html" aria-current="page">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../02-knowledge-and-retrieval/index.html">Overview</a><a href="../02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></details></noscript>
+<aside class="sidebar"><a class="wordmark" href="../../index.html"><span class="brand-mark" aria-hidden="true">t</span>Traceback<span class="wordmark-detail">PROJECT DOCS</span></a><button class="search-button" data-search-open><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search documentation</span><kbd>⌘ K</kbd></button><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="index.html">Overview</a><a href="web-experience.html">Web Experience</a><a href="fi-data-contract.html">FI Data Contract</a><a href="etl-and-lineage.html" aria-current="page">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../02-knowledge-and-retrieval/index.html">Overview</a><a href="../02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav><div class="sidebar-foot">Working documentation<br><span>Scope → systems → contracts</span></div></aside>
+<div class="page-shell"><header class="topbar"><button class="menu-button" data-nav-open aria-label="Open documentation navigation" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Documentation</a><span class="crumb-divider" aria-hidden="true">/</span><a href="index.html">Web app &amp; ETL</a><span class="crumb-divider" aria-hidden="true">/</span><span aria-current="page">ETL and Lineage</span></nav><button class="compact-search" data-search-open aria-label="Search documentation"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><a class="source-link" href="etl-and-lineage.md">Markdown source <span aria-hidden="true">↗</span></a></header>
+<div class="reading-layout"><main id="main" class="document" tabindex="-1"><div class="page-eyebrow">01 / Web app &amp; ETL</div><article><h1 id="etl-and-lineage">ETL and Lineage</h1>
+<p class="document-status"><span class="status-dot" aria-hidden="true"></span><strong>Status:</strong> Planning baseline — implementation not yet verified</p>
+
+<h2 id="purpose-and-execution-choice">Purpose and execution choice</h2>
+<p>Run real transformations and preserve enough evidence to diagnose and correct their business effects. The organization's ETL uses AWS Step Functions. This POC may use named local stages, Step Functions, or another familiar runner; visibility and reproducibility are mandatory.</p>
+<p>The investigator graph coordinates resolution; the ETL runner processes data. Integrate them through the <a href="../../shared/interface-contracts.html">shared interface contracts</a>.</p>
+<h2 id="processing-stages">Processing stages</h2>
+<p>Execute <strong>Landing → Validation → Normalization → Linking → Load</strong>, then render loaded records in the application.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Work and evidence retained</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Landing</td>
+<td>Original file bytes, checksum, manifest, run identity, and logical row references</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Schema/code/required-field checks, duplicate findings, accepted or rejected rows, and reasons</td>
+</tr>
+<tr>
+<td>Normalization</td>
+<td>Actual input/output values, types, units, applicable code mappings, and inspectable executed logic/version</td>
+</tr>
+<tr>
+<td>Linking</td>
+<td>Exact account/customer resolution, all contributing records, and unresolved references</td>
+</tr>
+<tr>
+<td>Load</td>
+<td>Accepted/skipped/rejected counts, canonical records, and source-to-loaded links</td>
+</tr>
+<tr>
+<td>Presentation</td>
+<td>Captured selected value, API input and database value, renderer version, and actual formatting logic/configuration</td>
+</tr>
+</tbody>
+</table></div>
+<p>Record stage order, timing, status, errors, and retries when they occur. A green stage means its execution completed. Semantic mistakes can survive validation and load.</p>
+<p>Preserve monetary values as exact major-unit decimals in the canonical store and as decimal strings at API boundaries. Source values, inferred or declared units, timestamps, and configuration provenance remain distinguishable. Retain rejected rows; unresolved references never trigger guessed relationships. The <a href="fi-data-contract.html">FI contract</a> owns field and parsing semantics.</p>
+<h2 id="storage-and-evidence-ownership">Storage and evidence ownership</h2>
+<p>Use a small relational store for customers, accounts, holders, and transactions, with immutable raw/stage artifacts in files or database records. Retain import runs, stage executions, source records, lineage, evidence, configuration versions, and investigation outputs.</p>
+<p>Lineage connects source rows through intermediate values and join inputs to canonical records. Captured presentation evidence also binds the application view to the inspected stored result. Customer/account context needs provenance, not just transaction amounts.</p>
+<p>Publish contracts and mapping artifacts to the knowledge pillar using canonical references. Tools return observations rather than hidden defect labels or completed root-cause answers. Reprocessing produces new evidence; it never overwrites evidence cited by an earlier investigation. Missing artifacts are recorded as unavailable. Cross-pillar payload schemas belong exclusively to the <a href="../../shared/interface-contracts.html">shared contract</a>.</p>
+<h2 id="executable-fixtures">Executable fixtures</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Fixture</th>
+<th>Implementation and boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mapping defect</td>
+<td>A real payment mapping omits cents-to-dollars conversion on its EFT branch while WIRE conversion remains correct. The bad branch affects every matching record, never a hard-coded transaction ID.</td>
+</tr>
+<tr>
+<td>Presentation defect</td>
+<td>Correct stored/API <code>1250.00</code> becomes displayed <code>125000.00</code> through actual versioned formatting logic. Diagnosis only; no mapping change.</td>
+</tr>
+<tr>
+<td>Clean control</td>
+<td>Applicable contract, mapping, stored value, and rendering agree.</td>
+</tr>
+<tr>
+<td>Unknown control</td>
+<td>The applicable source-unit contract and equivalent authoritative declarations are unavailable. Mapping behavior alone does not prove source meaning.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Keep ground truth and scenario labels in the private fixture/evaluation harness. Each scenario uses an isolated namespace and retained source snapshot. The mapping fixture includes EFT and WIRE records so the replay must prove both correction and preservation of unaffected data.</p>
+<h2 id="controlled-mapping-resolution">Controlled mapping resolution</h2>
+<p><strong>Impact.</strong> Evaluate the established defect condition against the actual run, applied mapping branch, source records, and loaded results. Return checked scope and exact matching records. Distinguish confirmed matches from unexamined scope; do not label every record sharing a mapping as affected.</p>
+<p><strong>Preview.</strong> Accept a typed, supported mapping correction through the shared contract. Validate the target, allowed parameter change, source snapshot, and configuration versions. Re-execute the retained four-file package into an isolated candidate snapshot with the proposed mapping. Do not call a calculated mock difference a replay.</p>
+<p>Compare candidate and active records using stable identities. Check exact amounts against the applicable contract, direction/currency preservation, relationship integrity, uniqueness, row accounting, and unchanged records outside the defect condition. Retain executed logic, stage observations, detailed differences, and failed checks alongside the candidate.</p>
+<p><strong>Review and apply.</strong> Bind the reviewed artifact to its candidate, correction, input hashes, record scope, and current active state. Before application, the server rechecks authority and those preconditions. Stale state or failed checks stop application. The graph's approval resumes the controlled service; a model cannot bypass its checks.</p>
+<p>Prefer atomically activating the reviewed candidate snapshot and mapping revision in one database transaction. The application then uses exactly the previewed result. Retain the previous snapshot. Use the shared operation identity so retries return the same outcome rather than applying twice.</p>
+<p><strong>Verify.</strong> Re-read the active dataset through the application's authoritative path, compare it with the approved candidate, and rerun the relevant invariants. Persist a verified or unresolved outcome. Define explicit handling for failure after activation; retaining an old snapshot alone does not establish that recovery works.</p>
+<h2 id="replay-and-operational-boundaries">Replay and operational boundaries</h2>
+<p>A corrected successful import requires a new reprocessing execution over retained inputs. AWS redrive resumes unsuccessful Standard executions using the original definition; it does not rerun successful processing under a changed definition. <a href="https://docs.aws.amazon.com/step-functions/latest/dg/redrive-executions.html">AWS redrive documentation</a></p>
+<p>Fixture reset must not destroy evidence for the active presentation. Start a fresh namespace when resetting and retain completed runs until intentionally cleaned up. This is a synthetic sandbox correction, with no payment execution or production FI writes. Recalculation of downstream AML alerts is deferred because those modules are absent.</p>
+<p>Use <a href="../../shared/acceptance-and-readiness.html">canonical acceptance and readiness</a> for required checks and the <a href="../../delivery-plan.html">delivery plan</a> for sequencing.</p></article><nav class="page-pagination" aria-label="Adjacent pages"><a class="page-previous" href="fi-data-contract.html"><span>Previous</span><strong>FI Data Contract</strong><small>01 / Web app &amp; ETL</small></a><a class="page-next" href="../02-knowledge-and-retrieval/index.html"><span>Next</span><strong>Overview</strong><small>02 / Knowledge &amp; retrieval</small></a></nav><footer class="document-footer">Traceback · Project planning<a href="etl-and-lineage.md">Open Markdown source</a></footer></main><aside class="page-toc" aria-label="On this page"><div class="toc-inner"><h2>On this page</h2><div class="toc">
+<ul>
+<li><a href="#purpose-and-execution-choice">Purpose and execution choice</a></li>
+<li><a href="#processing-stages">Processing stages</a></li>
+<li><a href="#storage-and-evidence-ownership">Storage and evidence ownership</a></li>
+<li><a href="#executable-fixtures">Executable fixtures</a></li>
+<li><a href="#controlled-mapping-resolution">Controlled mapping resolution</a></li>
+<li><a href="#replay-and-operational-boundaries">Replay and operational boundaries</a></li>
+</ul>
+</div>
+<a class="back-to-top" href="#main">Back to top ↑</a></div></aside></div></div>
+<dialog class="mobile-nav" aria-label="Documentation navigation"><div class="dialog-heading"><strong>Traceback documentation</strong><button data-dialog-close aria-label="Close navigation">×</button></div><nav aria-label="Mobile documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="index.html">Overview</a><a href="web-experience.html">Web Experience</a><a href="fi-data-contract.html">FI Data Contract</a><a href="etl-and-lineage.html" aria-current="page">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../02-knowledge-and-retrieval/index.html">Overview</a><a href="../02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></dialog>
+<dialog class="search-dialog" aria-labelledby="search-title"><div class="search-heading"><label id="search-title" for="doc-search">Search documentation</label><button data-dialog-close aria-label="Close search">×</button></div><div class="search-input-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="doc-search" type="search" autocomplete="off" placeholder="Search scope, contracts, investigation…" spellcheck="false"></div><p class="search-status" id="search-status" role="status">Search across all project documents.</p><div class="search-results" id="search-results"></div><div class="search-footer">Search works offline.<span><kbd>esc</kbd> to close</span></div></dialog>
+</body></html>

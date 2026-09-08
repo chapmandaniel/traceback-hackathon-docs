@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Knowledge Contract · Traceback</title><meta name="description" content="Traceback project planning documentation: scope, three pillars, interfaces, and acceptance criteria."><link rel="stylesheet" href="../../assets/site.css"><script defer src="../../assets/search-index.js"></script><script defer src="../../assets/site.js"></script></head>
+<body data-root="../.."><a class="skip-link" href="#main">Skip to content</a><noscript><style>.search-button,.menu-button,.compact-search{display:none!important}</style><details class="no-script-nav"><summary>Traceback documentation navigation</summary><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../01-web-app-and-etl/index.html">Overview</a><a href="../01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="index.html">Overview</a><a href="knowledge-contract.html" aria-current="page">Knowledge Contract</a><a href="retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></details></noscript>
+<aside class="sidebar"><a class="wordmark" href="../../index.html"><span class="brand-mark" aria-hidden="true">t</span>Traceback<span class="wordmark-detail">PROJECT DOCS</span></a><button class="search-button" data-search-open><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search documentation</span><kbd>⌘ K</kbd></button><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../01-web-app-and-etl/index.html">Overview</a><a href="../01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="index.html">Overview</a><a href="knowledge-contract.html" aria-current="page">Knowledge Contract</a><a href="retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav><div class="sidebar-foot">Working documentation<br><span>Scope → systems → contracts</span></div></aside>
+<div class="page-shell"><header class="topbar"><button class="menu-button" data-nav-open aria-label="Open documentation navigation" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Documentation</a><span class="crumb-divider" aria-hidden="true">/</span><a href="index.html">Knowledge &amp; retrieval</a><span class="crumb-divider" aria-hidden="true">/</span><span aria-current="page">Knowledge Contract</span></nav><button class="compact-search" data-search-open aria-label="Search documentation"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><a class="source-link" href="knowledge-contract.md">Markdown source <span aria-hidden="true">↗</span></a></header>
+<div class="reading-layout"><main id="main" class="document" tabindex="-1"><div class="page-eyebrow">02 / Knowledge &amp; retrieval</div><article><h1 id="knowledge-contract">Knowledge Contract</h1>
+<p class="document-status"><span class="status-dot" aria-hidden="true"></span><strong>Status:</strong> Planning baseline — implementation not yet verified</p>
+
+<h2 id="purpose-and-ownership">Purpose and ownership</h2>
+<p>The knowledge corpus describes source semantics, expected transformations, and approved procedures. It must establish which publication applies to the investigated import, not merely return a plausible passage.</p>
+<p>This document defines content and lifecycle requirements. The <a href="../../shared/interface-contracts.html">shared interface contracts</a> own the canonical identifiers, request and response payloads, evidence references, and error representation. Implement those shared types rather than introducing a second envelope here.</p>
+<p>Pillar 1 owns observed execution evidence and actual mapping or renderer artifacts. A knowledge document can link to those artifacts through stable references, but a description of intended behavior is not proof of executed behavior. Pillar 3 owns findings and resolution decisions.</p>
+<h2 id="initial-corpus-inventory">Initial corpus inventory</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Knowledge item</th>
+<th>Required content</th>
+<th>Authority and use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer feed contract</td>
+<td><code>customers.csv</code> headers, individual/business requirements, identifier namespace, null semantics, dates, code lists, optional KYC and FI risk attributes</td>
+<td>FI source semantics</td>
+</tr>
+<tr>
+<td>Account feed contract</td>
+<td><code>accounts.csv</code> identifiers, product codes, currency, status, and date handling</td>
+<td>FI source semantics</td>
+</tr>
+<tr>
+<td>Account-party contract</td>
+<td><code>account_parties.csv</code> account/customer namespaces, ownership roles, relationship validity</td>
+<td>FI relationship semantics</td>
+</tr>
+<tr>
+<td>Payment feed contract</td>
+<td><code>transactions.csv</code> identifiers, timestamps, amount units, currency, debit/credit convention, account references, and counterparty fields</td>
+<td>FI payment semantics</td>
+</tr>
+<tr>
+<td>Canonical field definitions</td>
+<td>SaaS field meaning, major-unit monetary representation, decimal handling, nulls, and preserved identifiers</td>
+<td>Application expectations</td>
+</tr>
+<tr>
+<td>Mapping descriptions</td>
+<td>Source-to-canonical rules, code mappings, declared dependencies, and references to versioned implementation artifacts</td>
+<td>Intended transformation behavior</td>
+</tr>
+<tr>
+<td>Amount correction procedure</td>
+<td>Conditions for proposing a mapping correction, replay requirements, impact criteria, and verification expectations</td>
+<td>Approved procedural guidance</td>
+</tr>
+<tr>
+<td>Reviewed resolved cases</td>
+<td>Observed symptoms, supported findings, evidence references, applicability, and verified outcomes</td>
+<td>Optional investigative guidance; never proof of a new cause</td>
+</tr>
+</tbody>
+</table></div>
+<p>The initial payment contract defines <code>125000</code> as USD cents, corresponding to canonical <code>1250.00</code> dollars. The customer contract can independently define expected monthly activity in major units. A shared field name such as “amount” must not cause the payment conversion rule to be applied to every feed.</p>
+<p>These are fictional integration contracts for the POC. They do not establish a universal AML data standard or authorize a regulatory conclusion.</p>
+<h2 id="required-metadata-semantics">Required metadata semantics</h2>
+<p>Use the shared contract's canonical field names. Each published item must represent the following information where applicable:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Metadata group</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity</td>
+<td>Stable document identity, immutable revision, document type, title, and content digest</td>
+</tr>
+<tr>
+<td>Applicability</td>
+<td>FI, feed, source system, schema/contract references, affected fields, and effective interval or an explicit statement that applicability is version-bound</td>
+</tr>
+<tr>
+<td>Authority</td>
+<td>Publisher or owner, approval/publication state, and whether the material is authoritative specification, explanation, procedure, or case guidance</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td>Original source location, captured revision, publication/effective dates, and ingestion timestamp kept distinct</td>
+</tr>
+<tr>
+<td>Access</td>
+<td>Tenant and permitted audience or policy references, including explicitly shared material</td>
+</tr>
+<tr>
+<td>Citation</td>
+<td>Stable version reference plus a passage anchor tied to preserved content</td>
+</tr>
+<tr>
+<td>Relationships</td>
+<td>Superseded revision, dependencies, and related mapping or procedure references when relevant</td>
+</tr>
+</tbody>
+</table></div>
+<p>The import's explicit contract reference takes precedence over a request for the newest document. If selection must use time, the feed contract must define the relevant applicability timestamp. Upload time is not a substitute for an effective date. “Deprecated” can describe a publication's current status while that publication remains the correct historical contract.</p>
+<h2 id="ingestion-and-publication-lifecycle">Ingestion and publication lifecycle</h2>
+<ol>
+<li><strong>Register the source.</strong> Preserve original bytes and provenance; obtain applicability and authority from maintained metadata rather than inferring them from prose alone.</li>
+<li><strong>Validate metadata.</strong> Quarantine incomplete or inconsistent items from authoritative retrieval. Report gaps to the corpus owner; do not silently fill in FI, units, or dates.</li>
+<li><strong>Preserve structure.</strong> Parse headings, tables, notes, code lists, and cross-references. Keep a field's unit, currency qualifier, exceptions, and scope together. A table row without its header can change meaning.</li>
+<li><strong>Create addressable passages.</strong> Short contracts can remain whole documents. Longer material can be sectioned, retaining parent context and exact version references. Search chunks are views over preserved sources, not replacement sources.</li>
+<li><strong>Review and publish.</strong> Check applicability, citation resolution, and critical semantics before making a revision available as authoritative. Build a metadata index; add lexical or semantic indexing only when it helps the corpus.</li>
+<li><strong>Revise immutably.</strong> Publish a new revision and explicit supersession relationship. Preserve historical citations. Record withdrawal or access revocation and enforce it on later reads without rewriting the historical content.</li>
+</ol>
+<h2 id="content-trust-and-completeness">Content trust and completeness</h2>
+<p>Retrieved prose is evidence, not executable policy. It cannot grant tool permissions, override graph checks, instruct the system to expose protected information, or approve a correction. Runtime authorization remains in backend services.</p>
+<p>Do not ingest seeded defect labels, expected evaluation answers, presenter scenario descriptions, or private test manifests. Reviewed development cases can become guidance; held-out evaluation ground truth remains isolated.</p>
+<p>The uncertainty fixture must remove all equivalent authoritative declarations of the source unit. If an applicable schema or another approved source establishes that unit, the investigator may correctly use it. Missing one named document alone does not establish that the meaning is unknowable.</p>
+<p>See the <a href="retrieval-workflow.html">retrieval workflow</a> for selection and conflict behavior and <a href="../../shared/acceptance-and-readiness.html">acceptance and readiness</a> for shared completion criteria.</p></article><nav class="page-pagination" aria-label="Adjacent pages"><a class="page-previous" href="index.html"><span>Previous</span><strong>Overview</strong><small>02 / Knowledge &amp; retrieval</small></a><a class="page-next" href="retrieval-workflow.html"><span>Next</span><strong>Retrieval Workflow</strong><small>02 / Knowledge &amp; retrieval</small></a></nav><footer class="document-footer">Traceback · Project planning<a href="knowledge-contract.md">Open Markdown source</a></footer></main><aside class="page-toc" aria-label="On this page"><div class="toc-inner"><h2>On this page</h2><div class="toc">
+<ul>
+<li><a href="#purpose-and-ownership">Purpose and ownership</a></li>
+<li><a href="#initial-corpus-inventory">Initial corpus inventory</a></li>
+<li><a href="#required-metadata-semantics">Required metadata semantics</a></li>
+<li><a href="#ingestion-and-publication-lifecycle">Ingestion and publication lifecycle</a></li>
+<li><a href="#content-trust-and-completeness">Content trust and completeness</a></li>
+</ul>
+</div>
+<a class="back-to-top" href="#main">Back to top ↑</a></div></aside></div></div>
+<dialog class="mobile-nav" aria-label="Documentation navigation"><div class="dialog-heading"><strong>Traceback documentation</strong><button data-dialog-close aria-label="Close navigation">×</button></div><nav aria-label="Mobile documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../01-web-app-and-etl/index.html">Overview</a><a href="../01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="index.html">Overview</a><a href="knowledge-contract.html" aria-current="page">Knowledge Contract</a><a href="retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></dialog>
+<dialog class="search-dialog" aria-labelledby="search-title"><div class="search-heading"><label id="search-title" for="doc-search">Search documentation</label><button data-dialog-close aria-label="Close search">×</button></div><div class="search-input-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="doc-search" type="search" autocomplete="off" placeholder="Search scope, contracts, investigation…" spellcheck="false"></div><p class="search-status" id="search-status" role="status">Search across all project documents.</p><div class="search-results" id="search-results"></div><div class="search-footer">Search works offline.<span><kbd>esc</kbd> to close</span></div></dialog>
+</body></html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Web Experience · Traceback</title><meta name="description" content="Traceback project planning documentation: scope, three pillars, interfaces, and acceptance criteria."><link rel="stylesheet" href="../../assets/site.css"><script defer src="../../assets/search-index.js"></script><script defer src="../../assets/site.js"></script></head>
+<body data-root="../.."><a class="skip-link" href="#main">Skip to content</a><noscript><style>.search-button,.menu-button,.compact-search{display:none!important}</style><details class="no-script-nav"><summary>Traceback documentation navigation</summary><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="index.html">Overview</a><a href="web-experience.html" aria-current="page">Web Experience</a><a href="fi-data-contract.html">FI Data Contract</a><a href="etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../02-knowledge-and-retrieval/index.html">Overview</a><a href="../02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></details></noscript>
+<aside class="sidebar"><a class="wordmark" href="../../index.html"><span class="brand-mark" aria-hidden="true">t</span>Traceback<span class="wordmark-detail">PROJECT DOCS</span></a><button class="search-button" data-search-open><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search documentation</span><kbd>⌘ K</kbd></button><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="index.html">Overview</a><a href="web-experience.html" aria-current="page">Web Experience</a><a href="fi-data-contract.html">FI Data Contract</a><a href="etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../02-knowledge-and-retrieval/index.html">Overview</a><a href="../02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav><div class="sidebar-foot">Working documentation<br><span>Scope → systems → contracts</span></div></aside>
+<div class="page-shell"><header class="topbar"><button class="menu-button" data-nav-open aria-label="Open documentation navigation" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Documentation</a><span class="crumb-divider" aria-hidden="true">/</span><a href="index.html">Web app &amp; ETL</a><span class="crumb-divider" aria-hidden="true">/</span><span aria-current="page">Web Experience</span></nav><button class="compact-search" data-search-open aria-label="Search documentation"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><a class="source-link" href="web-experience.md">Markdown source <span aria-hidden="true">↗</span></a></header>
+<div class="reading-layout"><main id="main" class="document" tabindex="-1"><div class="page-eyebrow">01 / Web app &amp; ETL</div><article><h1 id="web-experience">Web Experience</h1>
+<p class="document-status"><span class="status-dot" aria-hidden="true"></span><strong>Status:</strong> Planning baseline — implementation not yet verified</p>
+
+<h2 id="purpose">Purpose</h2>
+<p>Make one enterprise-oriented resolution journey convincing: a user questions an application value, follows its evidence, reviews a tested correction, and verifies the result. The fictional product is <strong>Traceback AML Sandbox</strong>, a data workspace receiving FI records. Its investigation concerns data correctness and does not constitute an AML alert or suspicious-activity determination.</p>
+<p>Keep three primary navigation items: <strong>Transactions</strong>, <strong>Customers</strong>, and <strong>Imports</strong>. Use a readable transaction table, one prominent amount, and a persistent investigation panel. Do not build a general chat homepage or unrelated dashboard metrics.</p>
+<h2 id="screens-and-information">Screens and information</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Planned behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transactions</td>
+<td>Search by reference and filter by date, account, direction, and payment type. Show timestamp, account, amount/currency, direction, type, counterparty, and import batch.</td>
+</tr>
+<tr>
+<td>Transaction detail</td>
+<td>Keep amount, payment context, linked account, account holders, source batch, and ingestion time visible. Place <strong>Investigate this value</strong> beside the amount.</td>
+</tr>
+<tr>
+<td>Traceback panel</td>
+<td>Capture the selected field and optional question. Show actual evidence lookups, finding, affected scope, next action, and unresolved information. Render the investigator's shared result contract.</td>
+</tr>
+<tr>
+<td>Evidence drawer</td>
+<td>Open the exact source row, stage input/output, applied mapping, applicable contract, stored/API value, or captured presentation evidence without losing the transaction context.</td>
+</tr>
+<tr>
+<td>Correction review</td>
+<td>Show the proposed mapping change, bounded affected records, actual replay outcome, representative differences, unchanged-record checks, and approval controls. This extends the same investigation.</td>
+</tr>
+<tr>
+<td>Customers</td>
+<td>Compact searchable person/business list with names, IDs, country, and supplied review context. Detail shows applicable identity/activity fields, linked accounts, and deduplicated transaction history.</td>
+</tr>
+<tr>
+<td>Account detail</td>
+<td>Show product, currency, status, account holders, and related transactions in a read-only drawer or page.</td>
+</tr>
+<tr>
+<td>Imports</td>
+<td>Show actual run status, file identities, timestamps, counts, and stage history. Link original, preview, and applied snapshots without overwriting the original evidence.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Customer and account views are supporting context. Label imported attributes <strong>FI-provided KYC status</strong> and <strong>FI-provided risk rating</strong>; absent values read <strong>Not provided</strong>. Use <strong>Account holders</strong> unless the source identifies an initiating customer. External counterparties must not be presented as FI customers merely because they appear in a payment.</p>
+<h2 id="main-mapping-correction-journey">Main mapping-correction journey</h2>
+<ol>
+<li><strong>Select:</strong> Open a transaction displaying USD 125,000.00 and choose its amount. Capture the actual rendered value and application context using the <a href="../../shared/interface-contracts.html">shared interface contract</a>.</li>
+<li><strong>Investigate:</strong> Keep the record visible while the panel displays real lookups. A finding links the source value, applicable unit contract, executed mapping, and stored result.</li>
+<li><strong>Establish impact:</strong> Display the number of confirmed affected records and the condition checked. Distinguish unexamined or potentially affected records. A shared mapping alone does not prove every record is wrong.</li>
+<li><strong>Preview:</strong> Request the supported mapping correction. Run actual ETL against retained source data in an isolated candidate snapshot. Show the mapping difference, changed amounts, scope, validation results, and unchanged WIRE/control records. Mark this explicitly as a preview.</li>
+<li><strong>Review:</strong> Present the complete reviewed artifact with <strong>Approve and apply to sandbox</strong> and <strong>Reject</strong>. The approval is tied to this specific plan and preview. A changed plan, active snapshot, or mapping version requires a fresh preview and approval.</li>
+<li><strong>Apply:</strong> The server executes the approved artifact through the controlled application service. Show actual progress; repeated clicks or requests must resolve to the same operation.</li>
+<li><strong>Verify:</strong> Re-read the active application data and show USD 1,250.00. Link the resulting snapshot, verified differences, and preserved original evidence. Only report resolution after the verification service confirms the result.</li>
+</ol>
+<p>Buttons reflect actions allowed by the graph and server. Hiding a button is not an authorization mechanism. Authentication/role scope and correction payload definitions are owned by the shared contracts and architecture, not independently redefined here.</p>
+<h2 id="other-outcomes-and-failure-states">Other outcomes and failure states</h2>
+<p>The display-defect fixture reaches an evidence-backed presentation diagnosis and a recommended next action. Its stored amount is correct; the interface must not offer the mapping repair. Automatic application-code repair is outside the core build.</p>
+<p>A clean record returns a supported no-discrepancy finding. An unknown-source-unit case identifies the missing evidence and cannot progress to an unsupported correction. Keep blocked, failed, rejected, and verification-failed outcomes visible and distinct from completion. A failed verification retains the investigation and directs attention to the unresolved result; it must not produce a success toast.</p>
+<p>Retry and browser refresh should recover persisted state. New live data must not silently replace evidence already cited. Clearly distinguish the captured investigated value from the current value after correction.</p>
+<h2 id="presentation-and-evidence-rules">Presentation and evidence rules</h2>
+<p><strong>Import completed</strong> describes execution status, not business correctness. Progress comes from recorded operations rather than timers. Evidence shows values, types, units, version context, and provenance; presentation evidence includes inspectable formatting logic, not just a version name. Missing evidence stays explicit.</p>
+<p>Use an isolated presenter surface for fixture reset, neutral fixture selection, model configuration, and actual evaluation results. Show an adapter only if one exists and was used. Training is optional; an existing capable model is valid. Private defect labels and expected answers never enter investigation inputs.</p>
+<h2 id="delivery-check">Delivery check</h2>
+<p>Implement the transaction/detail/evidence path before polishing supporting screens. Then complete controlled mapping preview and application, the two diagnosis controls, and repeatable presentation setup. See <a href="../../delivery-plan.html">delivery sequencing</a> and <a href="../../shared/acceptance-and-readiness.html">canonical acceptance and readiness</a> for completion criteria. These screen plans are not verification evidence.</p></article><nav class="page-pagination" aria-label="Adjacent pages"><a class="page-previous" href="index.html"><span>Previous</span><strong>Overview</strong><small>01 / Web app &amp; ETL</small></a><a class="page-next" href="fi-data-contract.html"><span>Next</span><strong>FI Data Contract</strong><small>01 / Web app &amp; ETL</small></a></nav><footer class="document-footer">Traceback · Project planning<a href="web-experience.md">Open Markdown source</a></footer></main><aside class="page-toc" aria-label="On this page"><div class="toc-inner"><h2>On this page</h2><div class="toc">
+<ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#screens-and-information">Screens and information</a></li>
+<li><a href="#main-mapping-correction-journey">Main mapping-correction journey</a></li>
+<li><a href="#other-outcomes-and-failure-states">Other outcomes and failure states</a></li>
+<li><a href="#presentation-and-evidence-rules">Presentation and evidence rules</a></li>
+<li><a href="#delivery-check">Delivery check</a></li>
+</ul>
+</div>
+<a class="back-to-top" href="#main">Back to top ↑</a></div></aside></div></div>
+<dialog class="mobile-nav" aria-label="Documentation navigation"><div class="dialog-heading"><strong>Traceback documentation</strong><button data-dialog-close aria-label="Close navigation">×</button></div><nav aria-label="Mobile documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="index.html">Overview</a><a href="web-experience.html" aria-current="page">Web Experience</a><a href="fi-data-contract.html">FI Data Contract</a><a href="etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../02-knowledge-and-retrieval/index.html">Overview</a><a href="../02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></dialog>
+<dialog class="search-dialog" aria-labelledby="search-title"><div class="search-heading"><label id="search-title" for="doc-search">Search documentation</label><button data-dialog-close aria-label="Close search">×</button></div><div class="search-input-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="doc-search" type="search" autocomplete="off" placeholder="Search scope, contracts, investigation…" spellcheck="false"></div><p class="search-status" id="search-status" role="status">Search across all project documents.</p><div class="search-results" id="search-results"></div><div class="search-footer">Search works offline.<span><kbd>esc</kbd> to close</span></div></dialog>
+</body></html>

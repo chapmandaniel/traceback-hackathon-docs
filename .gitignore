@@ -1,0 +1,14 @@
+.DS_Store
+work/
+**/__pycache__/
+*.pyc
+**/node_modules/
+**/traceback-docs-build/
+.venv/
+.env
+.env.*
+
+# Earlier planning drafts are retained locally; the linked folder is current.
+outputs/hackathon-concept.md
+outputs/traceback-project-scope.md
+outputs/fictional-aml-saas-plan.md

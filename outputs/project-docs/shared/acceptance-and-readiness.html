@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Acceptance and Readiness · Traceback</title><meta name="description" content="Traceback project planning documentation: scope, three pillars, interfaces, and acceptance criteria."><link rel="stylesheet" href="../assets/site.css"><script defer src="../assets/search-index.js"></script><script defer src="../assets/site.js"></script></head>
+<body data-root=".."><a class="skip-link" href="#main">Skip to content</a><noscript><style>.search-button,.menu-button,.compact-search{display:none!important}</style><details class="no-script-nav"><summary>Traceback documentation navigation</summary><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../index.html">Start here</a><a href="../project-scope.html">Project Scope</a><a href="../system-architecture.html">System Architecture</a><a href="../delivery-plan.html">Delivery Plan</a><a href="../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../pillars/01-web-app-and-etl/index.html">Overview</a><a href="../pillars/01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../pillars/01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../pillars/02-knowledge-and-retrieval/index.html">Overview</a><a href="../pillars/02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../pillars/02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../pillars/03-graph-investigator/index.html">Overview</a><a href="../pillars/03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../pillars/03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="acceptance-and-readiness.html" aria-current="page">Acceptance and Readiness</a><a href="interface-contracts.html">Shared Interface Contracts</a></section></nav></details></noscript>
+<aside class="sidebar"><a class="wordmark" href="../index.html"><span class="brand-mark" aria-hidden="true">t</span>Traceback<span class="wordmark-detail">PROJECT DOCS</span></a><button class="search-button" data-search-open><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search documentation</span><kbd>⌘ K</kbd></button><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../index.html">Start here</a><a href="../project-scope.html">Project Scope</a><a href="../system-architecture.html">System Architecture</a><a href="../delivery-plan.html">Delivery Plan</a><a href="../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../pillars/01-web-app-and-etl/index.html">Overview</a><a href="../pillars/01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../pillars/01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../pillars/02-knowledge-and-retrieval/index.html">Overview</a><a href="../pillars/02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../pillars/02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../pillars/03-graph-investigator/index.html">Overview</a><a href="../pillars/03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../pillars/03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="acceptance-and-readiness.html" aria-current="page">Acceptance and Readiness</a><a href="interface-contracts.html">Shared Interface Contracts</a></section></nav><div class="sidebar-foot">Working documentation<br><span>Scope → systems → contracts</span></div></aside>
+<div class="page-shell"><header class="topbar"><button class="menu-button" data-nav-open aria-label="Open documentation navigation" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Documentation</a><span class="crumb-divider" aria-hidden="true">/</span><span>Shared contracts &amp; proof</span><span class="crumb-divider" aria-hidden="true">/</span><span aria-current="page">Acceptance and Readiness</span></nav><button class="compact-search" data-search-open aria-label="Search documentation"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><a class="source-link" href="acceptance-and-readiness.md">Markdown source <span aria-hidden="true">↗</span></a></header>
+<div class="reading-layout"><main id="main" class="document" tabindex="-1"><div class="page-eyebrow">Shared contracts &amp; proof</div><article><h1 id="acceptance-and-readiness">Acceptance and Readiness</h1>
+
+<p class="document-status"><span class="status-dot" aria-hidden="true"></span><strong>Status:</strong> Planned criteria. All implementation checks below are unverified.</p>
+<p>This document is the authoritative home for completion criteria. Pillar documents explain how to meet them; the delivery plan references their IDs. Record the artifact/run proving each criterion when implementation exists.</p>
+<h2 id="ac-01">AC-01</h2>
+<p><strong>Realistic synthetic FI data — Pillar 1</strong></p>
+<ul>
+<li>[ ] Import the four linked feeds with individual/business profiles, separate accounts, joint holders, and external counterparties.</li>
+<li>[ ] Preserve text identifiers, namespaces, date/timestamp distinctions, exact decimal money, and unknown optional values.</li>
+<li>[ ] Demonstrate that joint-account joins do not duplicate transaction totals.</li>
+</ul>
+<p>Proof: generator/configuration version, retained source package, loaded records, and relationship checks. See the <a href="../pillars/01-web-app-and-etl/fi-data-contract.html">FI contract</a>.</p>
+<h2 id="ac-02">AC-02</h2>
+<p><strong>Actual execution evidence — Pillar 1</strong></p>
+<ul>
+<li>[ ] Trace a selected value through raw source, stage inputs/outputs, applied logic, load, and presentation.</li>
+<li>[ ] Persist run/stage identities, order, timestamps, outcomes, and versioned artifacts after execution.</li>
+<li>[ ] Presentation evidence includes the actual input, displayed output, and inspectable formatting logic from the same captured context.</li>
+</ul>
+<p>Proof: a reproducible evidence bundle and working UI links. See <a href="../pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and lineage</a>.</p>
+<h2 id="ac-03">AC-03</h2>
+<p><strong>Applicable and authorized knowledge — Pillar 2</strong></p>
+<ul>
+<li>[ ] Retrieve the exact FI/feed/version required by a historical import, even when a newer document exists.</li>
+<li>[ ] Reject or explicitly surface wrong-scope, missing, and conflicting authoritative knowledge.</li>
+<li>[ ] Keep equivalent authoritative information available when legitimate; do not require an inconclusive answer simply because one document is absent.</li>
+<li>[ ] Enforce access before returning content or sensitive existence details.</li>
+</ul>
+<p>Proof: retrieval cases, selected document/version references, and negative-scope tests. See the <a href="../pillars/02-knowledge-and-retrieval/retrieval-workflow.html">retrieval workflow</a>.</p>
+<h2 id="ac-04">AC-04</h2>
+<p><strong>Grounded, bounded investigation — Pillar 3</strong></p>
+<ul>
+<li>[ ] Run a real reasoning model with actual evidence access, applicable knowledge, and deterministic checks.</li>
+<li>[ ] Include at least one reserved case in which the model makes a meaningful investigation contribution: selects a discriminating evidence lookup, reconciles conflicting observations, or revises a hypothesis. Capture that observable contribution; paraphrasing a rule's final answer alone is insufficient. Keep deterministic exits for cases already settled by code.</li>
+<li>[ ] Support additional lookups or revised hypotheses within graph limits.</li>
+<li>[ ] Findings cite supporting observations and distinguish missing or contradictory evidence.</li>
+<li>[ ] Model output and retrieved/source text cannot grant permissions or bypass checks.</li>
+<li>[ ] Known deterministic diagnoses are permitted; private scenario labels never enter the investigator.</li>
+</ul>
+<p>Proof: complete investigation trace, model/prompt/tool versions, cited artifacts, and boundary tests. See the <a href="../pillars/03-graph-investigator/investigation-workflow.html">investigation workflow</a>.</p>
+<h2 id="ac-05">AC-05</h2>
+<p><strong>Different causes and uncertainty controls — All pillars</strong></p>
+<ul>
+<li>[ ] Diagnose an executable amount-conversion defect and an executable presentation defect producing the same visible amount discrepancy.</li>
+<li>[ ] Preserve a clean-record control without inventing a defect.</li>
+<li>[ ] Return an unresolved finding when source-unit meaning is genuinely unavailable from all trustworthy sources.</li>
+<li>[ ] Do not propose ETL reprocessing as the remedy for correctly stored data with a presentation error.</li>
+</ul>
+<p>Proof: reserved scenario definitions in the private evaluator, observed evidence, and scored findings. The core mapping fixture should include a faulty EFT conversion path and correctly processed WIRE controls in the same batch.</p>
+<h2 id="ac-06">AC-06</h2>
+<p><strong>Correct impact — Pillars 1 and 3</strong></p>
+<ul>
+<li>[ ] Execute a bounded defect predicate over actual records and applied configuration.</li>
+<li>[ ] Distinguish confirmed affected records from records that merely share a batch or mapping.</li>
+<li>[ ] Match the known affected set and preserve its immutable reference in the plan.</li>
+</ul>
+<p>Proof: predicate/query version, input snapshot, actual result set, and precision/recall against private fixture truth. No model-estimated counts.</p>
+<h2 id="ac-07">AC-07</h2>
+<p><strong>Real correction preview — Pillars 1 and 3</strong></p>
+<ul>
+<li>[ ] Validate one typed repair against the permitted action catalog.</li>
+<li>[ ] Reprocess retained source inputs into an isolated candidate using the proposed configuration.</li>
+<li>[ ] Show actual before/after differences for affected records and unchanged results for WIRE/clean controls.</li>
+<li>[ ] Record semantic, identity, relationship, and relevant amount checks. A failed preview cannot progress to approval.</li>
+</ul>
+<p>Proof: candidate snapshot, configuration hash, replay receipt, diff, and check results. A replay that only patches the displayed value does not satisfy this criterion.</p>
+<h2 id="ac-08">AC-08</h2>
+<p><strong>Concrete approval and stale-plan handling — Pillars 1 and 3</strong></p>
+<ul>
+<li>[ ] Bind an authorized review decision to the exact plan hash and previewed artifacts.</li>
+<li>[ ] Reject unauthorized approval/application using lightweight server-issued fixture roles; a full login UI is not required.</li>
+<li>[ ] Change a target/configuration revision after review and demonstrate that application is blocked until the plan is regenerated and reviewed.</li>
+<li>[ ] Restrict effects to the designated sandbox target.</li>
+</ul>
+<p>Proof: approval record, negative authorization cases, stale-state test, and execution denial. See <a href="interface-contracts.html">interface contracts</a>.</p>
+<h2 id="ac-09">AC-09</h2>
+<p><strong>Retry and interruption recovery — Pillars 1 and 3</strong></p>
+<ul>
+<li>[ ] Persist graph state and execution identity across interruption or refresh.</li>
+<li>[ ] Repeated application of the same operation does not duplicate effects.</li>
+<li>[ ] Simulate a lost response after a possible write; reconcile the operation ledger and active target before retrying or claiming success.</li>
+<li>[ ] Reject a reused operation key with a different plan.</li>
+</ul>
+<p>Proof: retry/failure-injection traces, execution ledger entries, and authoritative state. A frontend-disabled button alone is insufficient.</p>
+<h2 id="ac-10">AC-10</h2>
+<p><strong>Verified closure — Pillars 1 and 3</strong></p>
+<ul>
+<li>[ ] Read the active sandbox state after application and compare it with the reviewed candidate.</li>
+<li>[ ] Verify corrected values, expected identities/relationships, and preservation of unaffected controls.</li>
+<li>[ ] Refresh the application and show the corrected display from the verified state.</li>
+<li>[ ] Keep preview success, application acknowledgment, and verified resolution distinct. Failed verification remains open or escalates.</li>
+</ul>
+<p>Proof: post-application observations and final status with evidence references.</p>
+<h2 id="ac-11">AC-11</h2>
+<p><strong>Outcome-first evaluation — Shared responsibility</strong></p>
+<ul>
+<li>[ ] Reserve meaningful scenario variants before final tuning; keep their answers out of prompts, RAG documents, model training, and tools.</li>
+<li>[ ] Measure diagnosis support, impact accuracy, correction appropriateness, clean-record preservation, uncertainty, latency, and operator effort.</li>
+<li>[ ] Separate retrieval failures from reasoning failures using controlled evidence cases when needed.</li>
+<li>[ ] Compare optional model or fine-tuning changes against the existing baseline using equivalent available evidence, actions, and declared budgets; report all model/tool work.</li>
+</ul>
+<p>An initial 12–20 incident evaluation is a planning target for the hackathon, not proof of broad generalization. Report counts and denominators; repeat representative runs to expose variability. Fix operating thresholds before the final evaluation and record them in <a href="../decisions.html">decisions</a>.</p>
+<p>Proof: scenario split, configuration versions, raw outcomes, and a short results report. No specific model or adapter is required to win.</p>
+<h2 id="ac-12">AC-12</h2>
+<p><strong>Complete and inspectable demonstration — Shared responsibility</strong></p>
+<ul>
+<li>[ ] Run the full supported correction path with real data, retrieval, reasoning, replay, review, application, and verification.</li>
+<li>[ ] Reset fixtures and repeat the presentation on the actual demo setup.</li>
+<li>[ ] Open citations and navigate source-to-screen evidence without losing investigation context.</li>
+<li>[ ] Clearly label any development stub, recorded segment, or unavailable dependency; do not count it as live verified behavior.</li>
+</ul>
+<p>Proof: rehearsed demonstration and retained run references. Demo script: <a href="../delivery-plan.html#proposed-demonstration">delivery plan</a>.</p>
+<h2 id="enterprise-readiness-beyond-the-poc">Enterprise Readiness Beyond the POC</h2>
+<p>Passing the synthetic scope is a bounded product demonstration. Production readiness additionally needs evidence for real FI integration and schema variation; enterprise identity and tenant isolation; approved inference and data residency; retention and audit policy; load/concurrency and failure recovery; monitoring, support and incident response; and downstream effects of corrections.</p>
+<p>Where downstream AML calculations or alerts depend on corrected data, the production design must identify which outputs require recalculation or an explicit stale state. The hackathon does not implement a full AML engine.</p>
+<p>These are follow-on acceptance areas, not completed capabilities. Keep planned, implemented, tested, and production-approved status separate.</p></article><nav class="page-pagination" aria-label="Adjacent pages"><a class="page-previous" href="../pillars/03-graph-investigator/resolution-workflow.html"><span>Previous</span><strong>Resolution Workflow</strong><small>03 / Graph investigator</small></a><a class="page-next" href="interface-contracts.html"><span>Next</span><strong>Shared Interface Contracts</strong><small>Shared contracts &amp; proof</small></a></nav><footer class="document-footer">Traceback · Project planning<a href="acceptance-and-readiness.md">Open Markdown source</a></footer></main><aside class="page-toc" aria-label="On this page"><div class="toc-inner"><h2>On this page</h2><div class="toc">
+<ul>
+<li><a href="#ac-01">AC-01</a></li>
+<li><a href="#ac-02">AC-02</a></li>
+<li><a href="#ac-03">AC-03</a></li>
+<li><a href="#ac-04">AC-04</a></li>
+<li><a href="#ac-05">AC-05</a></li>
+<li><a href="#ac-06">AC-06</a></li>
+<li><a href="#ac-07">AC-07</a></li>
+<li><a href="#ac-08">AC-08</a></li>
+<li><a href="#ac-09">AC-09</a></li>
+<li><a href="#ac-10">AC-10</a></li>
+<li><a href="#ac-11">AC-11</a></li>
+<li><a href="#ac-12">AC-12</a></li>
+<li><a href="#enterprise-readiness-beyond-the-poc">Enterprise Readiness Beyond the POC</a></li>
+</ul>
+</div>
+<a class="back-to-top" href="#main">Back to top ↑</a></div></aside></div></div>
+<dialog class="mobile-nav" aria-label="Documentation navigation"><div class="dialog-heading"><strong>Traceback documentation</strong><button data-dialog-close aria-label="Close navigation">×</button></div><nav aria-label="Mobile documentation"><section class="nav-group"><h2>Project</h2><a href="../index.html">Start here</a><a href="../project-scope.html">Project Scope</a><a href="../system-architecture.html">System Architecture</a><a href="../delivery-plan.html">Delivery Plan</a><a href="../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../pillars/01-web-app-and-etl/index.html">Overview</a><a href="../pillars/01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../pillars/01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../pillars/02-knowledge-and-retrieval/index.html">Overview</a><a href="../pillars/02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../pillars/02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../pillars/03-graph-investigator/index.html">Overview</a><a href="../pillars/03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../pillars/03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="acceptance-and-readiness.html" aria-current="page">Acceptance and Readiness</a><a href="interface-contracts.html">Shared Interface Contracts</a></section></nav></dialog>
+<dialog class="search-dialog" aria-labelledby="search-title"><div class="search-heading"><label id="search-title" for="doc-search">Search documentation</label><button data-dialog-close aria-label="Close search">×</button></div><div class="search-input-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="doc-search" type="search" autocomplete="off" placeholder="Search scope, contracts, investigation…" spellcheck="false"></div><p class="search-status" id="search-status" role="status">Search across all project documents.</p><div class="search-results" id="search-results"></div><div class="search-footer">Search works offline.<span><kbd>esc</kbd> to close</span></div></dialog>
+</body></html>

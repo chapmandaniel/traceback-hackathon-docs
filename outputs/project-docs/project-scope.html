@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Project Scope · Traceback</title><meta name="description" content="Traceback project planning documentation: scope, three pillars, interfaces, and acceptance criteria."><link rel="stylesheet" href="assets/site.css"><script defer src="assets/search-index.js"></script><script defer src="assets/site.js"></script></head>
+<body data-root="."><a class="skip-link" href="#main">Skip to content</a><noscript><style>.search-button,.menu-button,.compact-search{display:none!important}</style><details class="no-script-nav"><summary>Traceback documentation navigation</summary><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="index.html">Start here</a><a href="project-scope.html" aria-current="page">Project Scope</a><a href="system-architecture.html">System Architecture</a><a href="delivery-plan.html">Delivery Plan</a><a href="decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="pillars/01-web-app-and-etl/index.html">Overview</a><a href="pillars/01-web-app-and-etl/web-experience.html">Web Experience</a><a href="pillars/01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="pillars/02-knowledge-and-retrieval/index.html">Overview</a><a href="pillars/02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="pillars/02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="pillars/03-graph-investigator/index.html">Overview</a><a href="pillars/03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="pillars/03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></details></noscript>
+<aside class="sidebar"><a class="wordmark" href="index.html"><span class="brand-mark" aria-hidden="true">t</span>Traceback<span class="wordmark-detail">PROJECT DOCS</span></a><button class="search-button" data-search-open><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search documentation</span><kbd>⌘ K</kbd></button><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="index.html">Start here</a><a href="project-scope.html" aria-current="page">Project Scope</a><a href="system-architecture.html">System Architecture</a><a href="delivery-plan.html">Delivery Plan</a><a href="decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="pillars/01-web-app-and-etl/index.html">Overview</a><a href="pillars/01-web-app-and-etl/web-experience.html">Web Experience</a><a href="pillars/01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="pillars/02-knowledge-and-retrieval/index.html">Overview</a><a href="pillars/02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="pillars/02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="pillars/03-graph-investigator/index.html">Overview</a><a href="pillars/03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="pillars/03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="shared/interface-contracts.html">Shared Interface Contracts</a></section></nav><div class="sidebar-foot">Working documentation<br><span>Scope → systems → contracts</span></div></aside>
+<div class="page-shell"><header class="topbar"><button class="menu-button" data-nav-open aria-label="Open documentation navigation" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Documentation</a><span class="crumb-divider" aria-hidden="true">/</span><span aria-current="page">Project Scope</span></nav><button class="compact-search" data-search-open aria-label="Search documentation"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><a class="source-link" href="project-scope.md">Markdown source <span aria-hidden="true">↗</span></a></header>
+<div class="reading-layout"><main id="main" class="document" tabindex="-1"><div class="page-eyebrow">Project</div><article><h1 id="project-scope">Project Scope</h1>
+
+<p class="document-status"><span class="status-dot" aria-hidden="true"></span><strong>Status:</strong> Planning baseline — confirmed direction with proposed implementation boundaries. No delivery claims are implied.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Build an enterprise-oriented hackathon POC that helps an FI user, project manager, or developer start from an incorrect value in an AML application, establish its cause and impact, and verify a controlled correction for a supported defect family.</p>
+<p>An import can complete successfully while producing incorrect business data. Traceback makes the data's journey and the applicable rules inspectable, then uses reasoning and executable checks to resolve the discrepancy.</p>
+<h2 id="confirmed-direction">Confirmed Direction</h2>
+<ul>
+<li>Organize the product into three pillars: web app and observable ETL; domain knowledge and retrieval; graph-based investigator.</li>
+<li>Select models and techniques by their contribution to resolution quality and operating targets.</li>
+<li>Retrieve changing domain knowledge and actual record evidence at investigation time, alongside domain reasoning in the graph.</li>
+<li>Use realistic, entirely synthetic FI data.</li>
+<li>Preserve execution visibility and record lineage regardless of ETL implementation. AWS Step Functions is the real organizational context, not a required POC dependency.</li>
+</ul>
+<p>The <a href="decisions.html">decision register</a> distinguishes these decisions from implementation proposals.</p>
+<h2 id="proposed-core-delivery">Proposed Core Delivery</h2>
+<p>Start with an existing capable reasoning model and evaluate domain SLM fine-tuning against it. Treating adapter training as optional for the first delivery is a proposed implementation choice; the team's interest in specialization remains part of the concept.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Boundary</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Credible operational sandbox</td>
+<td>One fictional FI, four linked export files, a real import, and a small AML data workspace</td>
+<td><a href="pillars/01-web-app-and-etl/index.html">Pillar 1</a></td>
+</tr>
+<tr>
+<td>Applicable domain knowledge</td>
+<td>Versioned contracts, field definitions, mapping guidance, and a permitted repair procedure</td>
+<td><a href="pillars/02-knowledge-and-retrieval/index.html">Pillar 2</a></td>
+</tr>
+<tr>
+<td>Evidence-based investigation</td>
+<td>Model reasoning and deterministic checks inside a controlled graph</td>
+<td><a href="pillars/03-graph-investigator/index.html">Pillar 3</a></td>
+</tr>
+<tr>
+<td>One complete correction family</td>
+<td>Diagnose an amount conversion error, establish its impact, replay a typed mapping correction, review, apply to the sandbox, and verify</td>
+<td><a href="pillars/03-graph-investigator/resolution-workflow.html">Resolution workflow</a></td>
+</tr>
+<tr>
+<td>Discriminating controls</td>
+<td>Same visible error caused by presentation; clean data; genuinely insufficient evidence</td>
+<td><a href="shared/acceptance-and-readiness.html">Acceptance criteria</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>The presentation defect needs a supported diagnosis and a concrete handoff recommendation, not a second automatic repair engine. Investigation completion and verified repair are separate outcomes.</p>
+<h2 id="definition-of-done">Definition of Done</h2>
+<p>The core demonstration must show actual data, actual execution evidence, an actual model investigation, and actual replay/application results. All core criteria in <a href="shared/acceptance-and-readiness.html">acceptance and readiness</a> must have recorded evidence before delivery is marked complete.</p>
+<p>The evaluation reports supported diagnoses, impact accuracy, correction validity, preservation of unaffected records, unresolved cases, latency, and operator effort. There is no requirement to prove that a particular model size or a fine-tuned adapter wins.</p>
+<h2 id="outside-core-scope">Outside Core Scope</h2>
+<ul>
+<li>Production FI integration, live customer data, and production deployment certification.</li>
+<li>AML detection, sanctions screening, alert case management, or regulatory reporting.</li>
+<li>Arbitrary generated-code execution, automatic production repair, and continuous unattended retraining.</li>
+<li>Required specialist fanout, required SLM orchestration, or required fine-tuning.</li>
+<li>Broad multi-currency accounting, internal-transfer lifecycle handling, and a full beneficial-owner graph.</li>
+</ul>
+<p>These can become later work only after they have a defined use case and acceptance criteria. If time tightens, cut optional infrastructure and extra scenarios before evidence integrity or verification of the supported correction.</p>
+<h2 id="enterprise-target-and-hackathon-proof">Enterprise Target and Hackathon Proof</h2>
+<p>The architecture targets controlled access, versioned evidence, recoverable workflows, attributable actions, and verified outcomes. The hackathon proves a narrow implementation in a synthetic environment. Broader enterprise readiness requires the additional evidence described in <a href="shared/acceptance-and-readiness.html#enterprise-readiness-beyond-the-poc">readiness</a>.</p></article><nav class="page-pagination" aria-label="Adjacent pages"><a class="page-previous" href="index.html"><span>Previous</span><strong>Start here</strong><small>Project</small></a><a class="page-next" href="system-architecture.html"><span>Next</span><strong>System Architecture</strong><small>Project</small></a></nav><footer class="document-footer">Traceback · Project planning<a href="project-scope.md">Open Markdown source</a></footer></main><aside class="page-toc" aria-label="On this page"><div class="toc-inner"><h2>On this page</h2><div class="toc">
+<ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#confirmed-direction">Confirmed Direction</a></li>
+<li><a href="#proposed-core-delivery">Proposed Core Delivery</a></li>
+<li><a href="#definition-of-done">Definition of Done</a></li>
+<li><a href="#outside-core-scope">Outside Core Scope</a></li>
+<li><a href="#enterprise-target-and-hackathon-proof">Enterprise Target and Hackathon Proof</a></li>
+</ul>
+</div>
+<a class="back-to-top" href="#main">Back to top ↑</a></div></aside></div></div>
+<dialog class="mobile-nav" aria-label="Documentation navigation"><div class="dialog-heading"><strong>Traceback documentation</strong><button data-dialog-close aria-label="Close navigation">×</button></div><nav aria-label="Mobile documentation"><section class="nav-group"><h2>Project</h2><a href="index.html">Start here</a><a href="project-scope.html" aria-current="page">Project Scope</a><a href="system-architecture.html">System Architecture</a><a href="delivery-plan.html">Delivery Plan</a><a href="decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="pillars/01-web-app-and-etl/index.html">Overview</a><a href="pillars/01-web-app-and-etl/web-experience.html">Web Experience</a><a href="pillars/01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="pillars/02-knowledge-and-retrieval/index.html">Overview</a><a href="pillars/02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="pillars/02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="pillars/03-graph-investigator/index.html">Overview</a><a href="pillars/03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="pillars/03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></dialog>
+<dialog class="search-dialog" aria-labelledby="search-title"><div class="search-heading"><label id="search-title" for="doc-search">Search documentation</label><button data-dialog-close aria-label="Close search">×</button></div><div class="search-input-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="doc-search" type="search" autocomplete="off" placeholder="Search scope, contracts, investigation…" spellcheck="false"></div><p class="search-status" id="search-status" role="status">Search across all project documents.</p><div class="search-results" id="search-results"></div><div class="search-footer">Search works offline.<span><kbd>esc</kbd> to close</span></div></dialog>
+</body></html>

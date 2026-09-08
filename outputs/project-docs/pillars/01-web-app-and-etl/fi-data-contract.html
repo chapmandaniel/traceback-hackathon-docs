@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>FI Data Contract · Traceback</title><meta name="description" content="Traceback project planning documentation: scope, three pillars, interfaces, and acceptance criteria."><link rel="stylesheet" href="../../assets/site.css"><script defer src="../../assets/search-index.js"></script><script defer src="../../assets/site.js"></script></head>
+<body data-root="../.."><a class="skip-link" href="#main">Skip to content</a><noscript><style>.search-button,.menu-button,.compact-search{display:none!important}</style><details class="no-script-nav"><summary>Traceback documentation navigation</summary><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="index.html">Overview</a><a href="web-experience.html">Web Experience</a><a href="fi-data-contract.html" aria-current="page">FI Data Contract</a><a href="etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../02-knowledge-and-retrieval/index.html">Overview</a><a href="../02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></details></noscript>
+<aside class="sidebar"><a class="wordmark" href="../../index.html"><span class="brand-mark" aria-hidden="true">t</span>Traceback<span class="wordmark-detail">PROJECT DOCS</span></a><button class="search-button" data-search-open><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search documentation</span><kbd>⌘ K</kbd></button><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="index.html">Overview</a><a href="web-experience.html">Web Experience</a><a href="fi-data-contract.html" aria-current="page">FI Data Contract</a><a href="etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../02-knowledge-and-retrieval/index.html">Overview</a><a href="../02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav><div class="sidebar-foot">Working documentation<br><span>Scope → systems → contracts</span></div></aside>
+<div class="page-shell"><header class="topbar"><button class="menu-button" data-nav-open aria-label="Open documentation navigation" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Documentation</a><span class="crumb-divider" aria-hidden="true">/</span><a href="index.html">Web app &amp; ETL</a><span class="crumb-divider" aria-hidden="true">/</span><span aria-current="page">FI Data Contract</span></nav><button class="compact-search" data-search-open aria-label="Search documentation"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><a class="source-link" href="fi-data-contract.md">Markdown source <span aria-hidden="true">↗</span></a></header>
+<div class="reading-layout"><main id="main" class="document" tabindex="-1"><div class="page-eyebrow">01 / Web app &amp; ETL</div><article><h1 id="fi-data-contract">FI Data Contract</h1>
+<p class="document-status"><span class="status-dot" aria-hidden="true"></span><strong>Status:</strong> Planning baseline — implementation not yet verified</p>
+
+<h2 id="purpose-and-fixture-boundary">Purpose and fixture boundary</h2>
+<p>Define a fictional FI export that resembles information used by an AML SaaS while remaining small enough to implement and explain. This is our POC contract, not a universal AML standard or a vendor API replica. Required fields are requirements of this fixture.</p>
+<p>Use <code>FI_DEMO_001</code>, a fictional retail and small-business bank. Start with 30 customers—24 individuals and six businesses—42 accounts, 46 holder links including four joint accounts, and approximately 1,000 posted external payments over 30 days. Generate reproducible, invented identities and references from a fixed seed. Volume can shrink before relationships or provenance are simplified.</p>
+<p>The core currency is USD. Country, nationality, bank location, and currency are distinct concepts; USD does not establish a regulatory jurisdiction. Include salary receipts, ordinary bill payments, and business supplier payments. Defer internal transfers, reversals, foreign-exchange calculations, identity-document scans, screening results, and beneficial-owner resolution.</p>
+<h2 id="delivery-package-and-parsing">Delivery package and parsing</h2>
+<p>Each isolated fixture has a manifest and four UTF-8 CSV files:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Source namespace</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>customers.csv</code></td>
+<td><code>CIF</code></td>
+<td>Customer master and selected FI-provided profile attributes</td>
+</tr>
+<tr>
+<td><code>accounts.csv</code></td>
+<td><code>CORE</code></td>
+<td>Accounts and product attributes</td>
+</tr>
+<tr>
+<td><code>account_parties.csv</code></td>
+<td>Explicit on both linked references</td>
+<td>Account holders, including joint ownership</td>
+</tr>
+<tr>
+<td><code>transactions.csv</code></td>
+<td><code>CORE</code></td>
+<td>External payment postings against an FI account</td>
+</tr>
+</tbody>
+</table></div>
+<p>The manifest records FI, export time, file identities, checksums, expected counts, source systems, feed modes, and applicable contract versions. It is our ingestion wrapper. The importer records which mapping actually executed.</p>
+<p>Treat customer, account, and relationship files as complete snapshots and payments as a declared time window. Initialize each scenario in its own fixture namespace; general incremental synchronization is deferred. Preview runs retain the original scenario identity and refer to its immutable source snapshot.</p>
+<p>Use a header row and documented CSV quoting. Empty optional cells become null. Record logical data-row positions, starting at one after the header, without confusing them with physical lines in quoted CSV. Preserve original bytes. IDs are case-sensitive text; retain leading zeros and reject malformed identifiers rather than guessing. Date-only fields use <code>YYYY-MM-DD</code>; timestamps carry an explicit offset.</p>
+<h2 id="source-fields">Source fields</h2>
+<p><strong>R:</strong> Required. <strong>C:</strong> Required for the specified customer type. <strong>O:</strong> Optional. FI and record source-system context may be inherited from the manifest.</p>
+<h3 id="customers">Customers</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Need</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>customer_id</code></td>
+<td>R</td>
+<td>Stable textual source identifier</td>
+</tr>
+<tr>
+<td><code>customer_type</code></td>
+<td>R</td>
+<td><code>P</code> individual or <code>B</code> business</td>
+</tr>
+<tr>
+<td><code>given_name</code>, <code>family_name</code></td>
+<td>C: individual</td>
+<td>Supplied name components</td>
+</tr>
+<tr>
+<td><code>date_of_birth</code></td>
+<td>C: individual</td>
+<td>Date-only birth date</td>
+</tr>
+<tr>
+<td><code>residence_country</code></td>
+<td>C: individual</td>
+<td>Residence country, distinct from nationality</td>
+</tr>
+<tr>
+<td><code>legal_name</code></td>
+<td>C: business</td>
+<td>Registered business name</td>
+</tr>
+<tr>
+<td><code>registration_number</code>, <code>registration_country</code></td>
+<td>C: business</td>
+<td>Synthetic registration reference and jurisdiction</td>
+</tr>
+<tr>
+<td><code>incorporation_date</code></td>
+<td>O: business</td>
+<td>Date-only incorporation date</td>
+</tr>
+<tr>
+<td><code>address_line_1</code>, <code>city</code>, <code>region</code>, <code>postal_code</code>, <code>address_country</code></td>
+<td>O</td>
+<td>Residential address for a person; registered address for a business</td>
+</tr>
+<tr>
+<td><code>customer_status</code>, <code>customer_since</code></td>
+<td>R</td>
+<td><code>ACTIVE</code>, <code>INACTIVE</code>, or <code>CLOSED</code>; relationship start date</td>
+</tr>
+<tr>
+<td><code>occupation</code></td>
+<td>O: individual</td>
+<td>FI-supplied occupation description</td>
+</tr>
+<tr>
+<td><code>industry</code>, <code>business_activity</code></td>
+<td>O: business</td>
+<td>Industry/activity; document the coding scheme if coded</td>
+</tr>
+<tr>
+<td><code>source_of_funds</code></td>
+<td>O</td>
+<td>Declared context such as salary or business revenue</td>
+</tr>
+<tr>
+<td><code>kyc_status</code>, <code>kyc_last_reviewed_at</code></td>
+<td>O</td>
+<td>FI-provided review status and timestamp</td>
+</tr>
+<tr>
+<td><code>fi_risk_rating</code></td>
+<td>O</td>
+<td>Existing FI assessment with documented code meanings</td>
+</tr>
+<tr>
+<td><code>expected_monthly_amount</code>, <code>expected_activity_currency</code></td>
+<td>O</td>
+<td>Declared monthly activity; decimal major units under the customer contract</td>
+</tr>
+<tr>
+<td><code>source_updated_at</code></td>
+<td>R</td>
+<td>Source-system update timestamp</td>
+</tr>
+</tbody>
+</table></div>
+<p>For populated review fields, document fixture codes such as <code>REVIEW_COMPLETE</code> and <code>LOW</code> in the applicable customer contract. These are imported assertions. They are not decisions made by Traceback. Keep inapplicable attributes null; a business has no date of birth.</p>
+<h3 id="accounts">Accounts</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Need</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>account_id</code>, <code>account_reference</code></td>
+<td>R</td>
+<td>Stable source ID and separate synthetic display reference</td>
+</tr>
+<tr>
+<td><code>product_code</code></td>
+<td>R</td>
+<td><code>CHK</code>, <code>SAV</code>, or <code>BUS_CHK</code></td>
+</tr>
+<tr>
+<td><code>account_currency</code></td>
+<td>R</td>
+<td>USD for the core fixture</td>
+</tr>
+<tr>
+<td><code>account_status</code>, <code>opened_date</code></td>
+<td>R</td>
+<td>Documented status code and opening date</td>
+</tr>
+<tr>
+<td><code>closed_date</code></td>
+<td>O</td>
+<td>Closing date when supplied</td>
+</tr>
+<tr>
+<td><code>account_purpose</code></td>
+<td>O</td>
+<td>Personal banking or business operations, for example</td>
+</tr>
+<tr>
+<td><code>branch_reference</code></td>
+<td>O</td>
+<td>FI branch reference; does not establish customer residence</td>
+</tr>
+<tr>
+<td><code>source_updated_at</code></td>
+<td>R</td>
+<td>Source-system update timestamp</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use <code>ACTIVE</code> or <code>CLOSED</code> for the initial account-status code list. Account balances are deferred because they require separate as-of and reconciliation semantics.</p>
+<h3 id="account-holders">Account holders</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Need</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>account_source_system</code>, <code>account_id</code></td>
+<td>R</td>
+<td>Exact account namespace and identifier</td>
+</tr>
+<tr>
+<td><code>customer_source_system</code>, <code>customer_id</code></td>
+<td>R</td>
+<td>Exact customer namespace and identifier</td>
+</tr>
+<tr>
+<td><code>relationship_role</code></td>
+<td>R</td>
+<td><code>OWNER</code> or <code>JOINT_HOLDER</code></td>
+</tr>
+<tr>
+<td><code>valid_from</code>, <code>valid_to</code></td>
+<td>O</td>
+<td>Relationship validity dates when supplied</td>
+</tr>
+</tbody>
+</table></div>
+<p>An account may have several holders and a customer several accounts. Deduplicate transaction IDs when building a customer's transaction history. Account ownership does not establish ownership of a business. Authorized signers and beneficial owners would require separately typed relationships.</p>
+<h3 id="transactions">Transactions</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Need</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>transaction_id</code></td>
+<td>R</td>
+<td>Unique posting reference within FI and source namespace</td>
+</tr>
+<tr>
+<td><code>account_source_system</code>, <code>account_id</code></td>
+<td>R</td>
+<td>Referenced FI account</td>
+</tr>
+<tr>
+<td><code>occurred_at</code>, <code>posted_at</code></td>
+<td>R</td>
+<td>Business and posting timestamps with offsets</td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td>R</td>
+<td>Positive integer string in minor units under the initial USD payment contract</td>
+</tr>
+<tr>
+<td><code>currency</code></td>
+<td>R</td>
+<td>USD in the core fixture</td>
+</tr>
+<tr>
+<td><code>debit_credit</code></td>
+<td>R</td>
+<td><code>D</code> or <code>C</code>, relative to the FI account</td>
+</tr>
+<tr>
+<td><code>payment_type</code></td>
+<td>R</td>
+<td><code>EFT</code> or <code>WIRE</code></td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>O</td>
+<td><code>WEB</code>, <code>MOBILE</code>, or <code>BRANCH</code></td>
+</tr>
+<tr>
+<td><code>transaction_status</code></td>
+<td>R</td>
+<td><code>BOOKED</code></td>
+</tr>
+<tr>
+<td><code>counterparty_name</code></td>
+<td>R</td>
+<td>Other party named in the payment</td>
+</tr>
+<tr>
+<td><code>counterparty_account_reference</code></td>
+<td>O</td>
+<td>Synthetic external reference</td>
+</tr>
+<tr>
+<td><code>counterparty_country</code></td>
+<td>O</td>
+<td>Supplied address country of the other party</td>
+</tr>
+<tr>
+<td><code>counterparty_bank_country</code></td>
+<td>O</td>
+<td>Country of the other party's bank</td>
+</tr>
+<tr>
+<td><code>payment_reference</code></td>
+<td>O</td>
+<td>Remittance or invoice reference</td>
+</tr>
+<tr>
+<td><code>initiating_customer_id</code></td>
+<td>O</td>
+<td>Known initiating customer in the documented <code>CIF</code> namespace</td>
+</tr>
+<tr>
+<td><code>source_updated_at</code></td>
+<td>R</td>
+<td>Source update timestamp</td>
+</tr>
+</tbody>
+</table></div>
+<p>External counterparties need not appear in the FI customer master. Missing external account details must not erase a valid FI-account link. A debit is outbound and a credit inbound; keep amounts positive instead of encoding direction twice. Account holders are not necessarily the person who initiated a payment.</p>
+<h2 id="canonical-mapping-rules">Canonical mapping rules</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Canonical treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer <code>P</code> / <code>B</code></td>
+<td><code>INDIVIDUAL</code> / <code>BUSINESS</code></td>
+</tr>
+<tr>
+<td>Source identifiers</td>
+<td>Resolve by FI, source system, object type, and text ID; retain separate internal keys</td>
+</tr>
+<tr>
+<td>Payment <code>D</code> / <code>C</code></td>
+<td><code>OUT</code> / <code>IN</code> relative to the linked account</td>
+</tr>
+<tr>
+<td>Payment <code>125000</code>, applicable contract says USD cents</td>
+<td>Exact major-unit decimal string <code>1250.00</code> with currency <code>USD</code></td>
+</tr>
+<tr>
+<td>Expected activity <code>4000.00</code></td>
+<td>Remains <code>4000.00</code>; the customer contract already specifies major units</td>
+</tr>
+<tr>
+<td><code>CHK</code> / <code>SAV</code> / <code>BUS_CHK</code></td>
+<td><code>CHECKING</code> / <code>SAVINGS</code> / <code>BUSINESS_CHECKING</code></td>
+</tr>
+<tr>
+<td>Offset timestamp</td>
+<td>Normalize the instant to UTC; retain source text</td>
+</tr>
+<tr>
+<td>Date-only value</td>
+<td>Preserve the calendar date without timezone conversion</td>
+</tr>
+<tr>
+<td>Empty optional cell</td>
+<td>Null; never silently zero, false, or low risk</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use exact decimal arithmetic and decimal strings in monetary API values. Retain normalized payment amounts in major units so the missing conversion is an actual processing defect. The USD fixture's scale must not become an assumption that every currency uses two decimal places.</p>
+<p>Unresolved relationships and duplicate transaction IDs within the fixture namespace produce recorded outcomes. They must not create guessed links or silently inflated totals. Detailed processing behavior belongs in <a href="etl-and-lineage.html">ETL and lineage</a>.</p>
+<h2 id="connected-example">Connected example</h2>
+<p>These JSON objects illustrate CSV rows; they are not an additional delivery format. Optional or inapplicable fields are omitted.</p>
+<pre><code class="language-json">{
+  &quot;customer_id&quot;: &quot;000041&quot;,
+  &quot;customer_type&quot;: &quot;P&quot;,
+  &quot;given_name&quot;: &quot;Maya&quot;,
+  &quot;family_name&quot;: &quot;Rowan&quot;,
+  &quot;date_of_birth&quot;: &quot;1988-04-17&quot;,
+  &quot;residence_country&quot;: &quot;US&quot;,
+  &quot;customer_status&quot;: &quot;ACTIVE&quot;,
+  &quot;customer_since&quot;: &quot;2022-06-10&quot;,
+  &quot;occupation&quot;: &quot;Architect&quot;,
+  &quot;source_of_funds&quot;: &quot;SALARY&quot;,
+  &quot;kyc_status&quot;: &quot;REVIEW_COMPLETE&quot;,
+  &quot;fi_risk_rating&quot;: &quot;LOW&quot;,
+  &quot;source_updated_at&quot;: &quot;2026-08-31T18:00:00Z&quot;
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;account_id&quot;: &quot;001234&quot;,
+  &quot;account_reference&quot;: &quot;DEMO-ACCT-001234&quot;,
+  &quot;product_code&quot;: &quot;CHK&quot;,
+  &quot;account_currency&quot;: &quot;USD&quot;,
+  &quot;account_status&quot;: &quot;ACTIVE&quot;,
+  &quot;opened_date&quot;: &quot;2022-06-10&quot;,
+  &quot;source_updated_at&quot;: &quot;2026-08-31T18:00:00Z&quot;
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;account_source_system&quot;: &quot;CORE&quot;,
+  &quot;account_id&quot;: &quot;001234&quot;,
+  &quot;customer_source_system&quot;: &quot;CIF&quot;,
+  &quot;customer_id&quot;: &quot;000041&quot;,
+  &quot;relationship_role&quot;: &quot;OWNER&quot;
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;transaction_id&quot;: &quot;PAY-000481&quot;,
+  &quot;account_source_system&quot;: &quot;CORE&quot;,
+  &quot;account_id&quot;: &quot;001234&quot;,
+  &quot;occurred_at&quot;: &quot;2026-09-01T09:15:00-04:00&quot;,
+  &quot;posted_at&quot;: &quot;2026-09-01T09:16:00-04:00&quot;,
+  &quot;amount&quot;: &quot;125000&quot;,
+  &quot;currency&quot;: &quot;USD&quot;,
+  &quot;debit_credit&quot;: &quot;D&quot;,
+  &quot;payment_type&quot;: &quot;EFT&quot;,
+  &quot;channel&quot;: &quot;WEB&quot;,
+  &quot;transaction_status&quot;: &quot;BOOKED&quot;,
+  &quot;counterparty_name&quot;: &quot;Example Property Services&quot;,
+  &quot;counterparty_account_reference&quot;: &quot;EXT-DEMO-8821&quot;,
+  &quot;counterparty_country&quot;: &quot;US&quot;,
+  &quot;payment_reference&quot;: &quot;RENT-SEP-2026&quot;,
+  &quot;source_updated_at&quot;: &quot;2026-09-01T13:16:00Z&quot;
+}
+</code></pre>
+<p>The correct payment is USD 1,250.00 under <code>core-payment-v1</code>. A business row uses <code>customer_type=B</code>, <code>legal_name=Example Workshop LLC</code>, <code>registration_number=DEMO-REG-000006</code>, and <code>registration_country=US</code>, with its own required status, relationship date, and update time. It leaves person-only attributes empty.</p>
+<h2 id="evidence-and-published-contract-versions">Evidence and published contract versions</h2>
+<p>Publish immutable customer, account, holder, and payment contract versions plus inspectable mapping logic for the knowledge pillar. The <a href="../../shared/interface-contracts.html">shared interface contracts</a> define their cross-pillar references; do not invent parallel payload schemas here.</p>
+<p>Source unit annotations must distinguish an authoritative contract declaration from an importer's assumption. The unknown control uses an unavailable applicable version without equivalent authoritative unit evidence elsewhere. Private fixture labels and expected answers never enter business records or knowledge retrieval.</p>
+<h2 id="reference-basis">Reference basis</h2>
+<p>The categories were informed by these official vendor descriptions; our field names and requirements are fictional design choices:</p>
+<ul>
+<li><a href="https://docs.mesh.complyadvantage.com/docs/customers">ComplyAdvantage customer model</a>: person/company profiles and supporting customer context.</li>
+<li><a href="https://support.unit21.ai/hc/en-us/articles/7796557710356-Instruments">Unit21 instruments</a>: financial instruments separate from associated entities.</li>
+<li><a href="https://support.complyadvantage.com/articles/5320269470-batch-transaction-upload">ComplyAdvantage batch transaction upload</a>: identifiers, time, money, channels, and participants.</li>
+<li><a href="https://support.unit21.ai/hc/en-us/articles/6433426083732-Best-Practices-when-sending-Data-to-Unit21">Unit21 data integration guidance</a>: stable identifiers and relationships.</li>
+</ul>
+<p>Readiness is assessed using <a href="../../shared/acceptance-and-readiness.html">the canonical acceptance criteria</a>.</p></article><nav class="page-pagination" aria-label="Adjacent pages"><a class="page-previous" href="web-experience.html"><span>Previous</span><strong>Web Experience</strong><small>01 / Web app &amp; ETL</small></a><a class="page-next" href="etl-and-lineage.html"><span>Next</span><strong>ETL and Lineage</strong><small>01 / Web app &amp; ETL</small></a></nav><footer class="document-footer">Traceback · Project planning<a href="fi-data-contract.md">Open Markdown source</a></footer></main><aside class="page-toc" aria-label="On this page"><div class="toc-inner"><h2>On this page</h2><div class="toc">
+<ul>
+<li><a href="#purpose-and-fixture-boundary">Purpose and fixture boundary</a></li>
+<li><a href="#delivery-package-and-parsing">Delivery package and parsing</a></li>
+<li><a href="#source-fields">Source fields</a><ul>
+<li><a href="#customers">Customers</a></li>
+<li><a href="#accounts">Accounts</a></li>
+<li><a href="#account-holders">Account holders</a></li>
+<li><a href="#transactions">Transactions</a></li>
+</ul>
+</li>
+<li><a href="#canonical-mapping-rules">Canonical mapping rules</a></li>
+<li><a href="#connected-example">Connected example</a></li>
+<li><a href="#evidence-and-published-contract-versions">Evidence and published contract versions</a></li>
+<li><a href="#reference-basis">Reference basis</a></li>
+</ul>
+</div>
+<a class="back-to-top" href="#main">Back to top ↑</a></div></aside></div></div>
+<dialog class="mobile-nav" aria-label="Documentation navigation"><div class="dialog-heading"><strong>Traceback documentation</strong><button data-dialog-close aria-label="Close navigation">×</button></div><nav aria-label="Mobile documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="index.html">Overview</a><a href="web-experience.html">Web Experience</a><a href="fi-data-contract.html" aria-current="page">FI Data Contract</a><a href="etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../02-knowledge-and-retrieval/index.html">Overview</a><a href="../02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></dialog>
+<dialog class="search-dialog" aria-labelledby="search-title"><div class="search-heading"><label id="search-title" for="doc-search">Search documentation</label><button data-dialog-close aria-label="Close search">×</button></div><div class="search-input-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="doc-search" type="search" autocomplete="off" placeholder="Search scope, contracts, investigation…" spellcheck="false"></div><p class="search-status" id="search-status" role="status">Search across all project documents.</p><div class="search-results" id="search-results"></div><div class="search-footer">Search works offline.<span><kbd>esc</kbd> to close</span></div></dialog>
+</body></html>

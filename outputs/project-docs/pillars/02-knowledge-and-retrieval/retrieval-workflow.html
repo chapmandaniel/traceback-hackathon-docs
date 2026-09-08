@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Retrieval Workflow · Traceback</title><meta name="description" content="Traceback project planning documentation: scope, three pillars, interfaces, and acceptance criteria."><link rel="stylesheet" href="../../assets/site.css"><script defer src="../../assets/search-index.js"></script><script defer src="../../assets/site.js"></script></head>
+<body data-root="../.."><a class="skip-link" href="#main">Skip to content</a><noscript><style>.search-button,.menu-button,.compact-search{display:none!important}</style><details class="no-script-nav"><summary>Traceback documentation navigation</summary><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../01-web-app-and-etl/index.html">Overview</a><a href="../01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="index.html">Overview</a><a href="knowledge-contract.html">Knowledge Contract</a><a href="retrieval-workflow.html" aria-current="page">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></details></noscript>
+<aside class="sidebar"><a class="wordmark" href="../../index.html"><span class="brand-mark" aria-hidden="true">t</span>Traceback<span class="wordmark-detail">PROJECT DOCS</span></a><button class="search-button" data-search-open><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search documentation</span><kbd>⌘ K</kbd></button><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../01-web-app-and-etl/index.html">Overview</a><a href="../01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="index.html">Overview</a><a href="knowledge-contract.html">Knowledge Contract</a><a href="retrieval-workflow.html" aria-current="page">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav><div class="sidebar-foot">Working documentation<br><span>Scope → systems → contracts</span></div></aside>
+<div class="page-shell"><header class="topbar"><button class="menu-button" data-nav-open aria-label="Open documentation navigation" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../index.html">Documentation</a><span class="crumb-divider" aria-hidden="true">/</span><a href="index.html">Knowledge &amp; retrieval</a><span class="crumb-divider" aria-hidden="true">/</span><span aria-current="page">Retrieval Workflow</span></nav><button class="compact-search" data-search-open aria-label="Search documentation"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><a class="source-link" href="retrieval-workflow.md">Markdown source <span aria-hidden="true">↗</span></a></header>
+<div class="reading-layout"><main id="main" class="document" tabindex="-1"><div class="page-eyebrow">02 / Knowledge &amp; retrieval</div><article><h1 id="retrieval-workflow">Retrieval Workflow</h1>
+<p class="document-status"><span class="status-dot" aria-hidden="true"></span><strong>Status:</strong> Planning baseline — implementation not yet verified</p>
+
+<h2 id="retrieval-strategy">Retrieval strategy</h2>
+<p>Use exact selection for authoritative knowledge whenever the investigation already has a document or version reference. Search helps discover supplementary procedures, related definitions, and unfamiliar terminology. Relevance ranking must not replace applicability checks.</p>
+<p>Start with versioned Markdown or JSON sources, a metadata index, and precise lookups. Add lexical or semantic search when evaluation justifies it. A generated answer is not a knowledge citation.</p>
+<p>Pillar 3 invokes retrieval through the <a href="../../shared/interface-contracts.html">shared interface contracts</a>. Pillar 2 returns attributable knowledge and explicit limitations; it does not declare the incident resolved or invoke repair tools.</p>
+<h2 id="targeted-retrieval-sequence">Targeted retrieval sequence</h2>
+<ol>
+<li><strong>Establish authorized context.</strong> Backend services derive the caller's FI and access scope from trusted session context. Use the selected record's import references, feed, source system, contract version, and relevant field from Pillar 1. Model-supplied tenant identifiers cannot expand that scope.</li>
+<li><strong>Resolve exact references.</strong> Load the immutable version named by the import or its authoritative source manifest. Check that the reference belongs to the permitted namespace and has the declared applicability. Fetch linked field definitions or code lists needed to interpret the passage.</li>
+<li><strong>Resolve applicability when references are incomplete.</strong> Filter by authorized FI, feed, source system, and schema constraints. Apply the documented effective-time rule. If these criteria do not select a unique applicable authority, return the candidates and the unresolved selection; do not choose “latest” by default.</li>
+<li><strong>Retrieve sufficient context.</strong> Return the relevant field definition with units, currency qualifiers, scope, exceptions, table headers, and needed cross-references. Include stable citations and provenance using the shared response contract.</li>
+<li><strong>Search for supplementary knowledge.</strong> When requested, search within the allowed corpus for procedures or related definitions. Enforce access filters before exposing results to the model; check access again when opening a result. Rank only candidates that satisfy required scope constraints.</li>
+<li><strong>Report completeness and conflicts.</strong> Use the shared retrieval statuses for results and expose supplementary guidance, ambiguous applicability, and unsupported facts explicitly.</li>
+<li><strong>Preserve the investigation snapshot.</strong> Pillar 3 records returned versions and passage references with the investigation. Reopening a citation must resolve the same preserved content, subject to current authorization. A later corpus revision must not silently change what a historical finding cited.</li>
+</ol>
+<p>Never select candidates using seeded incident labels or expected causes.</p>
+<h2 id="worked-amount-investigation">Worked amount investigation</h2>
+<p>An investigation concerns a displayed USD <code>125000.00</code>. Pillar 1 supplies the source value <code>125000</code>, the loaded decimal amount, stage lineage, and references to the applied mapping and payment contract. Pillar 2 retrieves the exact payment contract and canonical amount definition.</p>
+<p>If the contract establishes USD cents, the investigator can test whether normalization should yield <code>1250.00</code>. The actual mapping and stage observations determine whether conversion was omitted. If the stored value is already <code>1250.00</code>, presentation evidence becomes relevant. A contract cannot establish which stage caused the discrepancy by itself.</p>
+<p>If the named payment contract is unavailable, retrieve any other applicable authoritative declaration referenced by the feed or its schema. If none establishes the source unit, return an explicit gap. A familiar 100-fold difference, a similar resolved case, or a mapping's unsupported unit assumption cannot establish the FI's intended unit.</p>
+<h2 id="exceptional-behavior">Exceptional behavior</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Required behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A newer revision exists</td>
+<td>Use the historically applicable version; disclose supersession where relevant</td>
+</tr>
+<tr>
+<td>Explicit reference conflicts with applicability metadata</td>
+<td>Return the inconsistency for investigation; do not silently substitute another document</td>
+</tr>
+<tr>
+<td>Two applicable authorities disagree</td>
+<td>Return both passages with provenance and flag the conflict; do not average or conceal their meanings</td>
+</tr>
+<tr>
+<td>Search returns another FI's contract</td>
+<td>Prevent disclosure through backend access filtering; it cannot support this FI's semantics</td>
+</tr>
+<tr>
+<td>A resolved case suggests a likely cause</td>
+<td>Label it as guidance and require current incident evidence</td>
+</tr>
+<tr>
+<td>An instruction appears inside retrieved text</td>
+<td>Treat it as source content; do not change graph policy or tool authorization</td>
+</tr>
+<tr>
+<td>Metadata is missing or the document is unreviewed</td>
+<td>Exclude it from authoritative selection and report the knowledge gap</td>
+</tr>
+<tr>
+<td>Retrieval fails operationally</td>
+<td>Return an explicit retrieval failure; do not represent a timeout as absence of knowledge</td>
+</tr>
+</tbody>
+</table></div>
+<p>Shared generic guidance can be accessible across FIs when explicitly published that way, but it cannot override an FI-specific contract.</p>
+<h2 id="evidence-completeness-and-evaluation">Evidence completeness and evaluation</h2>
+<p>Maintain a small retrieval evaluation set separate from the investigation ground-truth manifest. Each test identifies the authorized request context, expected applicable sources or expected gap, and critical passages. Keep it outside the model-visible corpus.</p>
+<p>Evaluate exact version selection, retrieval of required semantics, citation/content integrity, handling of conflicts and genuine gaps, and backend isolation. Include an older applicable contract, a different feed with different amount units, misleading similar-case guidance, and an unauthorized source. Add a document containing instructions that conflict with application rules to test the trust boundary.</p>
+<p>For supplementary search, measure whether needed material appears within the result budget, plus latency and payload size. Similarity scores do not establish authority or correctness.</p>
+<p>Run end-to-end cases separately: the correct source may have been retrieved but misinterpreted, or retrieval may have failed before reasoning began. Record these as different failure classes so the team improves the responsible component. Numeric targets and release gates live in <a href="../../shared/acceptance-and-readiness.html">acceptance and readiness</a>; implementation order lives in the <a href="../../delivery-plan.html">delivery plan</a>.</p></article><nav class="page-pagination" aria-label="Adjacent pages"><a class="page-previous" href="knowledge-contract.html"><span>Previous</span><strong>Knowledge Contract</strong><small>02 / Knowledge &amp; retrieval</small></a><a class="page-next" href="../03-graph-investigator/index.html"><span>Next</span><strong>Overview</strong><small>03 / Graph investigator</small></a></nav><footer class="document-footer">Traceback · Project planning<a href="retrieval-workflow.md">Open Markdown source</a></footer></main><aside class="page-toc" aria-label="On this page"><div class="toc-inner"><h2>On this page</h2><div class="toc">
+<ul>
+<li><a href="#retrieval-strategy">Retrieval strategy</a></li>
+<li><a href="#targeted-retrieval-sequence">Targeted retrieval sequence</a></li>
+<li><a href="#worked-amount-investigation">Worked amount investigation</a></li>
+<li><a href="#exceptional-behavior">Exceptional behavior</a></li>
+<li><a href="#evidence-completeness-and-evaluation">Evidence completeness and evaluation</a></li>
+</ul>
+</div>
+<a class="back-to-top" href="#main">Back to top ↑</a></div></aside></div></div>
+<dialog class="mobile-nav" aria-label="Documentation navigation"><div class="dialog-heading"><strong>Traceback documentation</strong><button data-dialog-close aria-label="Close navigation">×</button></div><nav aria-label="Mobile documentation"><section class="nav-group"><h2>Project</h2><a href="../../index.html">Start here</a><a href="../../project-scope.html">Project Scope</a><a href="../../system-architecture.html">System Architecture</a><a href="../../delivery-plan.html">Delivery Plan</a><a href="../../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../01-web-app-and-etl/index.html">Overview</a><a href="../01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="index.html">Overview</a><a href="knowledge-contract.html">Knowledge Contract</a><a href="retrieval-workflow.html" aria-current="page">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../03-graph-investigator/index.html">Overview</a><a href="../03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="../../shared/acceptance-and-readiness.html">Acceptance and Readiness</a><a href="../../shared/interface-contracts.html">Shared Interface Contracts</a></section></nav></dialog>
+<dialog class="search-dialog" aria-labelledby="search-title"><div class="search-heading"><label id="search-title" for="doc-search">Search documentation</label><button data-dialog-close aria-label="Close search">×</button></div><div class="search-input-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="doc-search" type="search" autocomplete="off" placeholder="Search scope, contracts, investigation…" spellcheck="false"></div><p class="search-status" id="search-status" role="status">Search across all project documents.</p><div class="search-results" id="search-results"></div><div class="search-footer">Search works offline.<span><kbd>esc</kbd> to close</span></div></dialog>
+</body></html>

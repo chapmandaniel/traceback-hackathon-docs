@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Shared Interface Contracts · Traceback</title><meta name="description" content="Traceback project planning documentation: scope, three pillars, interfaces, and acceptance criteria."><link rel="stylesheet" href="../assets/site.css"><script defer src="../assets/search-index.js"></script><script defer src="../assets/site.js"></script></head>
+<body data-root=".."><a class="skip-link" href="#main">Skip to content</a><noscript><style>.search-button,.menu-button,.compact-search{display:none!important}</style><details class="no-script-nav"><summary>Traceback documentation navigation</summary><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../index.html">Start here</a><a href="../project-scope.html">Project Scope</a><a href="../system-architecture.html">System Architecture</a><a href="../delivery-plan.html">Delivery Plan</a><a href="../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../pillars/01-web-app-and-etl/index.html">Overview</a><a href="../pillars/01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../pillars/01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../pillars/02-knowledge-and-retrieval/index.html">Overview</a><a href="../pillars/02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../pillars/02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../pillars/03-graph-investigator/index.html">Overview</a><a href="../pillars/03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../pillars/03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="acceptance-and-readiness.html">Acceptance and Readiness</a><a href="interface-contracts.html" aria-current="page">Shared Interface Contracts</a></section></nav></details></noscript>
+<aside class="sidebar"><a class="wordmark" href="../index.html"><span class="brand-mark" aria-hidden="true">t</span>Traceback<span class="wordmark-detail">PROJECT DOCS</span></a><button class="search-button" data-search-open><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Search documentation</span><kbd>⌘ K</kbd></button><nav aria-label="Documentation"><section class="nav-group"><h2>Project</h2><a href="../index.html">Start here</a><a href="../project-scope.html">Project Scope</a><a href="../system-architecture.html">System Architecture</a><a href="../delivery-plan.html">Delivery Plan</a><a href="../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../pillars/01-web-app-and-etl/index.html">Overview</a><a href="../pillars/01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../pillars/01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../pillars/02-knowledge-and-retrieval/index.html">Overview</a><a href="../pillars/02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../pillars/02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../pillars/03-graph-investigator/index.html">Overview</a><a href="../pillars/03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../pillars/03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="acceptance-and-readiness.html">Acceptance and Readiness</a><a href="interface-contracts.html" aria-current="page">Shared Interface Contracts</a></section></nav><div class="sidebar-foot">Working documentation<br><span>Scope → systems → contracts</span></div></aside>
+<div class="page-shell"><header class="topbar"><button class="menu-button" data-nav-open aria-label="Open documentation navigation" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="1.6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Documentation</a><span class="crumb-divider" aria-hidden="true">/</span><span>Shared contracts &amp; proof</span><span class="crumb-divider" aria-hidden="true">/</span><span aria-current="page">Shared Interface Contracts</span></nav><button class="compact-search" data-search-open aria-label="Search documentation"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button><a class="source-link" href="interface-contracts.md">Markdown source <span aria-hidden="true">↗</span></a></header>
+<div class="reading-layout"><main id="main" class="document" tabindex="-1"><div class="page-eyebrow">Shared contracts &amp; proof</div><article><h1 id="shared-interface-contracts">Shared Interface Contracts</h1>
+
+<p class="document-status"><span class="status-dot" aria-hidden="true"></span><strong>Status:</strong> Proposed contract baseline — implementation not yet verified.</p>
+<p>This document owns the cross-pillar payload meanings. Pillar documents own their internal data and behavior. These are logical contracts; they do not require separate services or a specific transport.</p>
+<h2 id="common-conventions">Common Conventions</h2>
+<ul>
+<li>Use text identifiers. External identity is scoped by FI, source system, object type, and external ID. Canonical database IDs remain separate.</li>
+<li>Server-established actor permissions and FI scope accompany calls out of band. Model-supplied identifiers never grant access.</li>
+<li>Represent canonical money as exact decimal strings with currency and explicit major-unit semantics. Preserve raw source text separately.</li>
+<li>Distinguish observed timestamps, source update timestamps, ingestion timestamps, and date-only fields.</li>
+<li>Every immutable artifact has an ID, version or revision, content hash, and resolvable reference. Historical artifacts remain available to authorized investigations.</li>
+<li>Payload schema versions are separate from FI contract versions, mapping versions, and model versions.</li>
+<li>Missing values are explicit. Citation existence, document relevance, and causal support are separate checks.</li>
+<li>Trace IDs correlate activity; operation IDs identify effects. A trace ID is not an idempotency mechanism.</li>
+<li>Keep three objects distinct: the immutable source/reference fixture, the active sandbox target serving the app, and the isolated replay candidate awaiting review. Application promotes the reviewed candidate and mapping revision into the active target.</li>
+</ul>
+<h2 id="contract-ownership">Contract Ownership</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Contract</th>
+<th>Producer</th>
+<th>Consumer</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InvestigationContext</code></td>
+<td>Pillar 1 / authenticated application</td>
+<td>Pillar 3</td>
+<td>Establish the selected record and reproducible observation</td>
+</tr>
+<tr>
+<td><code>EvidenceItem</code></td>
+<td>Pillar 1 or deterministic check service</td>
+<td>Pillar 3 and UI</td>
+<td>Supply actual observations with provenance</td>
+</tr>
+<tr>
+<td><code>KnowledgeItem</code></td>
+<td>Pillar 2</td>
+<td>Pillar 3 and UI</td>
+<td>Supply applicable domain assertions and citations</td>
+</tr>
+<tr>
+<td><code>Finding</code></td>
+<td>Pillar 3</td>
+<td>UI, evaluator, and resolution planning</td>
+<td>State the supported result or remaining uncertainty</td>
+</tr>
+<tr>
+<td><code>ResolutionPlan</code></td>
+<td>Pillar 3, validated by execution service</td>
+<td>Reviewer and Pillar 1 executor</td>
+<td>Describe the exact proposed and previewed change</td>
+</tr>
+<tr>
+<td><code>ExecutionReceipt</code></td>
+<td>Pillar 1 executor</td>
+<td>Pillar 3 and UI</td>
+<td>Record the actual effect and subsequent verification</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="investigationcontext">InvestigationContext</h2>
+<p>Minimum fields:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>investigation_id</code>, <code>schema_version</code></td>
+<td>Stable investigation identity and payload version</td>
+</tr>
+<tr>
+<td><code>fi_id</code>, <code>record_ref</code>, <code>field_path</code></td>
+<td>Authorized target; record reference includes its source identity</td>
+</tr>
+<tr>
+<td><code>user_question</code></td>
+<td>User-supplied question, treated as input rather than authority</td>
+</tr>
+<tr>
+<td><code>snapshot_id</code>, <code>import_run_id</code></td>
+<td>Immutable operational context for the original observation</td>
+</tr>
+<tr>
+<td><code>presentation_capture_id</code></td>
+<td>Captured display, API input, renderer version, and formatting-logic reference</td>
+</tr>
+<tr>
+<td><code>observed_value</code></td>
+<td>Value/type/currency/unit as actually displayed, including original text</td>
+</tr>
+<tr>
+<td><code>source_refs</code>, <code>configuration_refs</code></td>
+<td>Available source, contract, mapping, and renderer identities; absent references remain explicit</td>
+</tr>
+</tbody>
+</table></div>
+<p>The backend captures or validates the record/display relationship. A user-entered expected value is a reported expectation, not automatically the correct answer.</p>
+<h2 id="evidenceitem">EvidenceItem</h2>
+<p>Each item contains <code>evidence_id</code>, <code>schema_version</code>, <code>fi_id</code>, <code>kind</code>, <code>snapshot_id</code>, relevant record/run/stage references, <code>observed_at</code>, <code>content_hash</code>, a resolvable artifact reference, and a bounded payload.</p>
+<p>Useful kinds include <code>source_record</code>, <code>stage_observation</code>, <code>applied_mapping</code>, <code>validation_result</code>, <code>link_result</code>, <code>load_result</code>, <code>presentation_capture</code>, and <code>deterministic_check</code>.</p>
+<p>Field observations retain raw/canonical values, types, currencies, and unit provenance. A unit declared by a source contract differs from a unit assumed by a mapping. A deterministic check must name its rule/version and input evidence; it may report a verified rule violation but must not read the private scenario answer.</p>
+<p>Lineage links include all contributing records for joins. A summary is not a replacement for the resolvable underlying artifact.</p>
+<h2 id="knowledgeitem">KnowledgeItem</h2>
+<p>Minimum metadata:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>document_id</code>, <code>version</code>, <code>section_id</code></td>
+<td>Stable exact citation identity</td>
+</tr>
+<tr>
+<td><code>fi_id</code>, <code>source_system</code>, <code>feed_id</code></td>
+<td>Applicability scope; shared documents must explicitly declare their permitted scope</td>
+</tr>
+<tr>
+<td><code>effective_from</code>, <code>effective_to</code></td>
+<td>Declared temporal applicability, where relevant</td>
+</tr>
+<tr>
+<td><code>authority</code>, <code>publication_status</code></td>
+<td>Contract, mapping documentation, approved procedure, or case guidance; draft/approved/superseded lifecycle</td>
+</tr>
+<tr>
+<td><code>content_hash</code>, <code>artifact_ref</code>, <code>text</code></td>
+<td>Immutable source identity and the returned passage</td>
+</tr>
+<tr>
+<td><code>retrieval_method</code>, <code>selection_basis</code></td>
+<td>Exact reference, metadata match, or search; why it was selected</td>
+</tr>
+<tr>
+<td><code>access_scope_ref</code></td>
+<td>Policy reference enforced by the retrieval service</td>
+</tr>
+</tbody>
+</table></div>
+<p>A superseded document can remain the correct description of a historical import. A currently approved repair procedure is a separate selection from the historic source contract. Lifecycle status alone must not silently replace the version referenced by the import.</p>
+<p>Knowledge responses use <code>found</code>, <code>missing</code>, <code>conflicting</code>, or <code>not_authorized</code>, with items and unresolved applicability details where permitted. Relevance scores are not authority scores. User-facing errors must not reveal inaccessible document contents or existence.</p>
+<p>Corpus rules and retrieval behavior are owned by <a href="../pillars/02-knowledge-and-retrieval/index.html">Pillar 2</a>.</p>
+<h2 id="finding">Finding</h2>
+<p>The finding contains <code>finding_id</code>, <code>investigation_id</code>, <code>status</code>, <code>summary</code>, applicable stage/cause, supporting evidence/document references, contradictory observations, missing information, and proposed next actions.</p>
+<p><code>Finding.status</code> is one of:</p>
+<ul>
+<li><code>supported</code>: The stated finding is supported by specified evidence/checks. This does not mean a repair has been applied.</li>
+<li><code>no_supported_discrepancy</code>: Available evidence supports the observed value or does not establish the reported discrepancy; explain the basis and limits.</li>
+<li><code>inconclusive</code>: Required meaning or evidence remains unresolved.</li>
+</ul>
+<p>The investigation lifecycle is separate: <code>received</code>, <code>running</code>, <code>needs_input</code>, <code>completed</code>, or <code>failed</code>. A completed investigation can have an inconclusive finding.</p>
+<h2 id="resolutionplan">ResolutionPlan</h2>
+<p>A plan names <code>plan_id</code>, <code>plan_revision</code>, <code>investigation_id</code>, <code>finding_id</code>, and the current state. The application validates a proposed typed action against the repair catalog before replay or execution.</p>
+<p>The plan must bind:</p>
+<ul>
+<li>FI, target sandbox/environment, action type, and validated parameters.</li>
+<li>Retained source snapshot/package hashes and the currently active target revision.</li>
+<li>Current and candidate mapping/configuration versions and content hashes.</li>
+<li>The supported defect predicate, its query/version, and the exact affected-record set or immutable set reference.</li>
+<li>Candidate replay identity, before/after diff artifact, clean-control set, and invariant-check results.</li>
+<li>The approval policy and a <code>plan_hash</code> over the concrete reviewable content above.</li>
+</ul>
+<p>Use a canonical serialization for hashing. State labels and the approval record itself are not part of the immutable content they reference. Any change to reviewed inputs, target revision, configuration, affected scope, or preview artifacts produces a new hash and invalidates prior approval.</p>
+<p>An approval is a separate attributable record containing the authorized actor, decision, timestamp, and exact <code>plan_hash</code>. The executor rechecks current permissions and state before applying it. Model text such as “approved” has no authority.</p>
+<p>Plan states are:</p>
+<p><code>draft</code> → <code>previewing</code> → <code>preview_passed</code> → <code>awaiting_approval</code> → <code>approved</code> → <code>applying</code> → <code>applied_pending_verification</code> → <code>verified</code>.</p>
+<p>Other outcomes are <code>preview_failed</code>, <code>stale</code>, <code>rejected</code>, <code>failed</code>, and <code>outcome_unknown</code>. Rejected, stale, or changed plans require a new valid review path; a failed preview does not progress to approval.</p>
+<p>The <a href="../pillars/03-graph-investigator/resolution-workflow.html">resolution workflow</a> defines the transition conditions.</p>
+<h2 id="executionreceipt">ExecutionReceipt</h2>
+<p>The executor returns <code>operation_id</code>, <code>plan_hash</code>, target identity, prior/activated revisions, observed execution status, timestamps, result artifact references, and error/reconciliation details.</p>
+<p>For the proposed sandbox, application can atomically activate the reviewed candidate snapshot and matching mapping revision. It must check the expected prior revision and maintain an operation ledger. Repeating the same operation returns its recorded outcome; a mismatched plan under the same key is rejected.</p>
+<p>If a response is lost after a possible effect, record <code>outcome_unknown</code> and inspect the ledger and authoritative target before retrying. Graph checkpointing alone does not make writes exactly-once.</p>
+<p>Verification reads the authoritative active target and records observed values, record-set checks, and invariants against the reviewed preview. Only that evidence permits <code>verified</code>. A successful request or a passed preview is insufficient.</p>
+<h2 id="independent-development-and-contract-changes">Independent Development and Contract Changes</h2>
+<p>Each pillar can provide development stubs matching these meanings, clearly labeled as stubs. The core acceptance run must use real operational records, retrieval, model calls, replay, and execution receipts.</p>
+<p>When a field meaning or transition changes, update this document first, then the producer, consumers, and linked <a href="acceptance-and-readiness.html">acceptance criteria</a>. Transport-specific schemas and endpoints can be generated from the implementation later; do not create a second competing definition here.</p></article><nav class="page-pagination" aria-label="Adjacent pages"><a class="page-previous" href="acceptance-and-readiness.html"><span>Previous</span><strong>Acceptance and Readiness</strong><small>Shared contracts &amp; proof</small></a></nav><footer class="document-footer">Traceback · Project planning<a href="interface-contracts.md">Open Markdown source</a></footer></main><aside class="page-toc" aria-label="On this page"><div class="toc-inner"><h2>On this page</h2><div class="toc">
+<ul>
+<li><a href="#common-conventions">Common Conventions</a></li>
+<li><a href="#contract-ownership">Contract Ownership</a></li>
+<li><a href="#investigationcontext">InvestigationContext</a></li>
+<li><a href="#evidenceitem">EvidenceItem</a></li>
+<li><a href="#knowledgeitem">KnowledgeItem</a></li>
+<li><a href="#finding">Finding</a></li>
+<li><a href="#resolutionplan">ResolutionPlan</a></li>
+<li><a href="#executionreceipt">ExecutionReceipt</a></li>
+<li><a href="#independent-development-and-contract-changes">Independent Development and Contract Changes</a></li>
+</ul>
+</div>
+<a class="back-to-top" href="#main">Back to top ↑</a></div></aside></div></div>
+<dialog class="mobile-nav" aria-label="Documentation navigation"><div class="dialog-heading"><strong>Traceback documentation</strong><button data-dialog-close aria-label="Close navigation">×</button></div><nav aria-label="Mobile documentation"><section class="nav-group"><h2>Project</h2><a href="../index.html">Start here</a><a href="../project-scope.html">Project Scope</a><a href="../system-architecture.html">System Architecture</a><a href="../delivery-plan.html">Delivery Plan</a><a href="../decisions.html">Decision Register</a></section><section class="nav-group"><h2>01 / Web app &amp; ETL</h2><a href="../pillars/01-web-app-and-etl/index.html">Overview</a><a href="../pillars/01-web-app-and-etl/web-experience.html">Web Experience</a><a href="../pillars/01-web-app-and-etl/fi-data-contract.html">FI Data Contract</a><a href="../pillars/01-web-app-and-etl/etl-and-lineage.html">ETL and Lineage</a></section><section class="nav-group"><h2>02 / Knowledge &amp; retrieval</h2><a href="../pillars/02-knowledge-and-retrieval/index.html">Overview</a><a href="../pillars/02-knowledge-and-retrieval/knowledge-contract.html">Knowledge Contract</a><a href="../pillars/02-knowledge-and-retrieval/retrieval-workflow.html">Retrieval Workflow</a></section><section class="nav-group"><h2>03 / Graph investigator</h2><a href="../pillars/03-graph-investigator/index.html">Overview</a><a href="../pillars/03-graph-investigator/investigation-workflow.html">Investigation Workflow</a><a href="../pillars/03-graph-investigator/resolution-workflow.html">Resolution Workflow</a></section><section class="nav-group"><h2>Shared contracts &amp; proof</h2><a href="acceptance-and-readiness.html">Acceptance and Readiness</a><a href="interface-contracts.html" aria-current="page">Shared Interface Contracts</a></section></nav></dialog>
+<dialog class="search-dialog" aria-labelledby="search-title"><div class="search-heading"><label id="search-title" for="doc-search">Search documentation</label><button data-dialog-close aria-label="Close search">×</button></div><div class="search-input-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="doc-search" type="search" autocomplete="off" placeholder="Search scope, contracts, investigation…" spellcheck="false"></div><p class="search-status" id="search-status" role="status">Search across all project documents.</p><div class="search-results" id="search-results"></div><div class="search-footer">Search works offline.<span><kbd>esc</kbd> to close</span></div></dialog>
+</body></html>
