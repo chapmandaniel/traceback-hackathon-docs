@@ -8,10 +8,10 @@ Start with the [documentation home](outputs/project-docs/README.md), then follow
 
 ## Read on your laptop
 
-Clone this private repository while signed in to the GitHub account that has access:
+Clone this public repository with Git; no GitHub sign-in is required:
 
 ```sh
-gh repo clone chapmandaniel/traceback-hackathon-docs
+git clone https://github.com/chapmandaniel/traceback-hackathon-docs.git
 ```
 
 Open `outputs/project-docs/index.html` from the cloned folder in a browser. Search, navigation, and diagrams work offline without installing dependencies.
